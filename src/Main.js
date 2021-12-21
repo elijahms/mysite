@@ -1,9 +1,9 @@
-import React from 'react'
 import Grid from '@mui/material/Grid';
 import { useSpring, animated, config } from '@react-spring/web'
 import {useState} from 'react'
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
+import resume from './Static/resume.pdf'
 
 const Main = () => {
 
@@ -54,14 +54,17 @@ const Main = () => {
                     loop: true,}}/>
                 </Item>
             </Grid>
-            <Grid xs={12} md={4} s={4}>
+            <Grid xs={12} md={3} s={3}>
                 <Item><animated.a style={LinkSpring} href="#skills">Skills</animated.a></Item>
             </Grid>
-            <Grid xs={12} md={4} s={4}>
+            <Grid xs={12} md={3} s={3}>
             <Item><animated.a style={LinkSpring} href="#about-me">About Me</animated.a></Item>
             </Grid>
-            <Grid xs={12} md={4} s={4}>
+            <Grid xs={12} md={3} s={3}>
             <Item><animated.a style={LinkSpring} href="#contact">Contact</animated.a></Item>
+            </Grid>
+            <Grid xs={12} md={3} s={3}>
+            <Item><animated.a style={LinkSpring} href={resume} target="_blank" rel="noopener noreferrer">Resume</animated.a></Item>
             </Grid>
             <Grid style={LinkSpring} xs={12} md={12} s={12}>
             <div className="down-arrow"></div>

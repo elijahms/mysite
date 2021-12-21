@@ -5,7 +5,7 @@ import Skills from './Skills';
 import Experience from './Experience';
 import Contact from './Contact';
 
-const Test = () => {
+const AllPages = () => {
 
     return (
         <Parallax
@@ -21,7 +21,8 @@ const Test = () => {
         </ParallaxLayer>
         <ParallaxLayer 
             offset={1}
-            speed={2}
+            speed={1.5}
+            factor={1.5}
             style={{ backgroundColor: '#0a192f' }} 
         />
         <ParallaxLayer
@@ -35,6 +36,7 @@ const Test = () => {
         <ParallaxLayer 
             offset={2}
             speed={2}
+            factor={1.5}
             style={{ backgroundColor: '#0a192f' }} 
         />
         <ParallaxLayer
@@ -47,6 +49,7 @@ const Test = () => {
         <ParallaxLayer 
             offset={3}
             speed={2}
+            factor={1.5}
             style={{ backgroundColor: '#0a192f' }} 
         />
         <ParallaxLayer
@@ -73,4 +76,4 @@ const Test = () => {
     )
 }
 
-export default Test
+export default AllPages

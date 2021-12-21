@@ -18,17 +18,6 @@ code {
     monospace;
 }
 
-.card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.25rem;
-  height: 10rem;
-  width: 100vw;
-  text-align: center;
-  border-radius: 10px;
-}
-
 .down-arrow {
   position: absolute;
   top: calc(100vh - 80px);
@@ -65,34 +54,10 @@ code {
   }
 }
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -109,8 +74,14 @@ code {
   src: local('Calibre'), url(./Fonts/Calibre-Medium.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'CalibreL';
+  src: local('CalibreL'), url(./Fonts/Calibre-Light.ttf) format('truetype');
+}
+
 a:link {
   text-decoration: none;
+  color: #8892b0;
 }
 a:visited {
   text-decoration: none;
@@ -118,7 +89,7 @@ a:visited {
 }
 a:hover {
   text-decoration: none;
-  color: #8892b0;
+  color: #4c5674;
 }
 a:active {
   text-decoration: none;

@@ -1,10 +1,10 @@
 import './index.css';
-import Test from './Test';
+import AllPages from './AllPages';
 
 function App() {
     return (
       <div>
-      <Test />
+      <AllPages />
       </div>
   );
 }
