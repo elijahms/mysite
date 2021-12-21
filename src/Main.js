@@ -33,6 +33,7 @@ const Main = () => {
     font-family: Calibre;
     font-size: 6vw;
     text-align: center;
+    color: #e60071;
     `
     const LastNameStyle = styled.span `
         color: #8892b0;
