@@ -35,12 +35,13 @@ const TitleDiv = styled.div `
 text-align: center;
 font-size: 2.5em;
 white-space: pre-line;
+padding-bottom: 20%;
 `
 
     return (
         <Grid container maxWidth="md" spacing={1}>
             <Grid xs={12} md={12} lg={12}>
-            <TitleDiv><h1>{'Projects \n'}</h1></TitleDiv>
+            <TitleDiv><h1>Projects</h1></TitleDiv>
             </Grid>
             <Grid xs={12} md={6} lg={6}>
             <SkillDiv onMouseEnter={handleHover} onMouseLeave={handleHoverOut}><LinkstoProj href="https://stuck-in-space.netlify.app/" target="_blank" rel="noopener noreferrer" alt="stuckinspace" >{spacediv ? 'A CLI-style game, built with React and Ruby' : 'Stuck In Space \n\n 🚀 👽 👾' }</LinkstoProj></SkillDiv>

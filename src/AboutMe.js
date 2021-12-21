@@ -7,6 +7,9 @@ const AboutMe = () => {
 
     const AboutMeP = styled.p `
     font-size: 1.5em;
+    @media screen and (max-width: 600px) {
+          font-size: 20px;
+        }
     `
     const SkillsT = styled.h2 `
     font-size: 1.5em;
@@ -29,22 +32,22 @@ const AboutMe = () => {
             </AboutMeP>
             <SkillsT>{'Some skills I\'ve aquired so far include \n\n'}</SkillsT>
             <Grid container spacing={1}>
-            <Grid xs={12} md={6} lg={2}>
+            <Grid xs={6} md={6} lg={2}>
             <SkillsD>React</SkillsD>
             </Grid>
-            <Grid xs={12} md={6} lg={2}>
+            <Grid xs={6} md={6} lg={2}>
             <SkillsD>HTML</SkillsD>
             </Grid>
-            <Grid xs={12} md={6} lg={2}>
+            <Grid xs={6} md={6} lg={2}>
             <SkillsD>Javascript</SkillsD>
             </Grid>
-            <Grid xs={12} md={6} lg={2}>
+            <Grid xs={6} md={6} lg={2}>
             <SkillsD>Ruby</SkillsD>
             </Grid>
-            <Grid xs={12} md={6} lg={2}>
+            <Grid xs={6} md={6} lg={2}>
             <SkillsD>Rails</SkillsD>
             </Grid>
-            <Grid xs={12} md={6} lg={2}>
+            <Grid xs={6} md={6} lg={2}>
             <SkillsD>CSS</SkillsD>
             </Grid>
             </Grid>
