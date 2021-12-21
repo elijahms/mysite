@@ -53,7 +53,7 @@ const Contact = () => {
                 </StyledIconDiv>
             </Grid>
             <Grid xs={12} md={12} lg={12}>
-            <StyledIconDiv><Link href='mailto:elijahmsilverman@gmail.com'>{' \n\n elijahmsilverman@gmail.com'}</Link></StyledIconDiv>
+            <StyledIconDiv><Link href='mailto:elijahmsilverman@gmail.com'>{' \n\n elijahmsilverman'}</Link></StyledIconDiv>
             </Grid>
         </Grid>
     )

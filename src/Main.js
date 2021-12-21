@@ -31,7 +31,7 @@ const Main = () => {
     
     const MyNameStyle = styled.h1 `
     font-family: Calibre;
-    font-size: 6vw;
+    font-size: 400%;
     text-align: center;
     color: #e60071;
     `
@@ -51,7 +51,7 @@ const Main = () => {
                 options={{
                     strings: ['React', 'Javascript', 'Ruby', 'CSS', 'HTML', 'Rails'],
                     autoStart: true,
-                    pauseFor: 1000,
+                    pauseFor: 800,
                     loop: true,}}/>
                 </Item>
             </Grid>
