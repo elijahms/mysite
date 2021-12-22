@@ -18,7 +18,10 @@ const NavBar = () => {
 
     return (
         <BarDiv>
-            <Grid sx={{paddingLeft: '20%'}} container>
+            <Grid container>
+            <Grid xs={12} md={3} s={3}>
+            <Item><NavLink activeStyle exact to="/">Home</NavLink></Item>
+            </Grid>
             <Grid xs={12} md={3} s={3}>
             <Item><NavLink activeStyle exact to="/about">About Me</NavLink></Item>
             </Grid>
