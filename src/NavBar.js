@@ -9,8 +9,7 @@ const NavBar = () => {
     font-family: Calibre;
     font-size: 20pt;
     text-align: center;
-    padding-bottom: 10%;
-    padding-top: 10%;
+    padding-top: 5%;
     `;
 
     const BarDiv = styled.div `
@@ -19,17 +18,17 @@ const NavBar = () => {
     return (
         <BarDiv>
             <Grid container>
-            <Grid xs={12} md={3} s={3}>
-            <Item><NavLink activeStyle exact to="/">Home</NavLink></Item>
+            <Grid xs={4} md={4} s={4}>
+            <Item><NavLink exact to="/about">About Me</NavLink></Item>
             </Grid>
-            <Grid xs={12} md={3} s={3}>
-            <Item><NavLink activeStyle exact to="/about">About Me</NavLink></Item>
-            </Grid>
-            <Grid xs={12} md={3} s={3}>
+            <Grid xs={4} md={4} s={4}>
             <Item><NavLink activeStyle exact to="/skills">Skills</NavLink></Item>
             </Grid>
-            <Grid xs={12} md={3} s={3}>
+            <Grid xs={4} md={4} s={4}>
             <Item><NavLink activeStyle exact to="/contact">Contact</NavLink></Item>
+            </Grid>
+            <Grid xs={12} md={12} s={12}>
+            <Item><NavLink activeStyle exact to="/">Home</NavLink></Item>
             </Grid>
             </Grid>
         </BarDiv>

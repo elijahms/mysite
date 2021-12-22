@@ -5,14 +5,14 @@ import styled from 'styled-components';
 const Experience = () => {
 
     const ContentP = styled.p `
-    font-size: 1em;
+    font-size: 100%;
     white-space: pre-line;
     padding-left: 3%;
     padding-right: 3%;
     `
     const TitleDiv = styled.div `
     text-align: center;
-    font-size: 2.5em;
+    font-size: 170%;
     white-space: pre-line;
     padding-left: 3%;
     padding-right: 3%;

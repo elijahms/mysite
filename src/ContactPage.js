@@ -10,14 +10,21 @@ const ContactPage = () => {
     justify-content: center;
     align-items: center;
     padding-top: 20vh;
+    margin-left: 15%;
+    margin-right: 15%
     `
+    const PageDiv = styled.div `
+    background-color: #0a192f;
+    height: 100vh;
+    `
+
     return (
-        <div>
+        <PageDiv>
             <NavBar />
         <AboutDiv>
         <Contact />
         </AboutDiv>
-        </div>
+        </PageDiv>
     )
 }
 

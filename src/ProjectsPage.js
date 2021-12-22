@@ -10,8 +10,9 @@ const ProjectsPage = () => {
     justify-content: center;
     align-items: center;
     padding-top: 20vh;
+    // background-color: ;
     `
-    
+
     return (
         <div>
         <NavBar />

@@ -9,7 +9,7 @@ const AboutPage = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 20vh;
+    padding-top: 10vh;
     `
     return (
         <div>
