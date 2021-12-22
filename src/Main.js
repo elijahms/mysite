@@ -4,6 +4,8 @@ import {useState} from 'react'
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
 import resume from './Static/resume.pdf'
+import { NavLink } from 'react-router-dom'
+import NavBar from './NavBar';
 
 const Main = () => {
 
@@ -56,16 +58,16 @@ const Main = () => {
                 </Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
-                <Item><animated.a style={LinkSpring} href="#skills">Skills</animated.a></Item>
+                <Item><NavLink activeStyle exact to="/about">About Me</NavLink></Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
-            <Item><animated.a style={LinkSpring} href="#about-me">About Me</animated.a></Item>
+            <Item><NavLink activeStyle exact to="/skills">Skills</NavLink></Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
-            <Item><animated.a style={LinkSpring} href="#contact">Contact</animated.a></Item>
+            <Item><NavLink activeStyle exact to="/contact">Contact</NavLink></Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
-            <Item><animated.a style={LinkSpring} href={resume} target="_blank" rel="noopener noreferrer">Resume</animated.a></Item>
+            <Item><a style={LinkSpring} href={resume} target="_blank" rel="noopener noreferrer">Resume</a></Item>
             </Grid>
             <Grid style={LinkSpring} xs={12} md={12} s={12}>
             <div className="down-arrow"></div>

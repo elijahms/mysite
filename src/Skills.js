@@ -28,10 +28,10 @@ padding-bottom: 10%;
             <TitleDiv><h1>Projects</h1></TitleDiv>
             </Grid>
             <Grid xs={12} md={6} lg={6}>
-            <SkillDiv onMouseEnter={() => setSpacediv(true)} onMouseLeave={() => setSpacediv(false)}><LinkstoProj href="https://stuck-in-space.netlify.app/" target="_blank" rel="noopener noreferrer" alt="stuckinspace" >{spacediv ? 'A CLI-style game, built with React and Ruby' : 'Stuck In Space \n\n 🚀 👽 👾' }</LinkstoProj></SkillDiv>
+            <SkillDiv onMouseEnter={() => setSpacediv(true)} onMouseLeave={() => setSpacediv(false)}><LinkstoProj href="https://stuck-in-space.netlify.app/" target="_blank" rel="noopener noreferrer" alt="stuckinspace" >{spacediv ? 'A CLI-style game, built with React and Ruby' : 'Stuck In Space \n 🚀 👽 👾' }</LinkstoProj></SkillDiv>
             </Grid>
             <Grid xs={12} md={6} lg={6}>
-            <SkillDiv onMouseEnter={() => setMatchdiv(true)} onMouseLeave={() => setMatchdiv(false)}><LinkstoProj href="https://theperfectmatch.netlify.app/" target="_blank" rel="noopener noreferrer">{matchdiv ? 'A fun tool to match activites, built with React' : 'Match It \n\n 🎥 🍔 🎮'}</LinkstoProj></SkillDiv>
+            <SkillDiv onMouseEnter={() => setMatchdiv(true)} onMouseLeave={() => setMatchdiv(false)}><LinkstoProj href="https://theperfectmatch.netlify.app/" target="_blank" rel="noopener noreferrer">{matchdiv ? 'A fun tool to match activites, built with React' : 'Match It \n 🎥 🍔 🎮'}</LinkstoProj></SkillDiv>
             </Grid>
         </Grid>
     )
