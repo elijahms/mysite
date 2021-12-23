@@ -9,7 +9,7 @@ const AllPages = () => {
 
     return (
         <Parallax
-                pages={5}
+                pages={4}
                 style={{ top: '0', left: '0'}}
                 >
                 <ParallaxLayer
@@ -23,7 +23,7 @@ const AllPages = () => {
                 offset={1}
                 speed={1.5}
                 factor={1.5}
-                style={{ backgroundColor: '#0a192f' }} 
+                style={{ backgroundColor: '#053868' }} 
             />
             <ParallaxLayer
                 offset={1}
@@ -37,7 +37,7 @@ const AllPages = () => {
                 offset={2}
                 speed={2}
                 factor={1.5}
-                style={{ backgroundColor: '#0a192f' }} 
+                style={{ backgroundColor: '#053868' }} 
             />
             <ParallaxLayer
                 offset={2}
@@ -50,24 +50,10 @@ const AllPages = () => {
             <ParallaxLayer 
                 offset={3}
                 speed={2}
-                factor={1.5}
-                style={{ backgroundColor: '#0a192f' }} 
+                style={{ backgroundColor: '#053868' }} 
             />
             <ParallaxLayer
                 offset={3}
-                speed={0.4}
-                style={{
-                display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white'}}>
-                <Experience />
-            </ParallaxLayer>
-
-            <ParallaxLayer 
-                offset={4}
-                speed={2}
-                style={{ backgroundColor: '#0a192f' }} 
-            />
-            <ParallaxLayer
-                offset={4}
                 speed={0.4}
                 style={{
                 display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white'}}>

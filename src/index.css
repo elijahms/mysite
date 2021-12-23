@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #EFE4E4;
+  background-color: #5CDB95;
 }
 
 code {
@@ -27,6 +27,7 @@ code {
   border: 2px solid;
   border-radius: 2px;
   animation: jumpInfinite 1.5s infinite;
+  color: #053868;
 }
 
 .down-arrow:after {
@@ -96,3 +97,6 @@ a:active {
   color: #8892b0;
 }
 
+.twitter-icon:hover {
+  color: "#00acee" 
+}

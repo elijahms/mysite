@@ -12,11 +12,8 @@ const NavBar = () => {
     padding-top: 5%;
     `;
 
-    const BarDiv = styled.div `
-    `;
-
     return (
-        <BarDiv>
+ 
             <Grid container>
             <Grid xs={4} md={4} s={4}>
             <Item><NavLink exact to="/about">About Me</NavLink></Item>
@@ -31,7 +28,7 @@ const NavBar = () => {
             <Item><NavLink activeStyle exact to="/">Home</NavLink></Item>
             </Grid>
             </Grid>
-        </BarDiv>
+  
     )
 }
 

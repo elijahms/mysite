@@ -6,6 +6,7 @@ const AboutMe = () => {
 
     const AboutMeP = styled.p `
     font-size: 1.5em;
+    color: #EDF5E1;
     @media screen and (max-width: 600px) {
           font-size: 20px;
         }
@@ -14,12 +15,14 @@ const AboutMe = () => {
     font-size: 1.5em;
     text-align: center;
     white-space: pre-line;
+    color: #EDF5E1;
     `
 
     const SkillsD = styled.div `
     font-size: 1.5em;
     text-align: center;
     white-space: pre-line;
+    color: #EDF5E1;
     `
 
     const skills = ['HTML', 'Javascript', 'CSS', 'React', 'Ruby', 'Rails']

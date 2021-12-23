@@ -24,21 +24,24 @@ const Main = () => {
       })
 
     const Item = styled.div `
-    // border: 1px dotted white;
     font-family: Calibre;
     font-size: 20pt;
     text-align: center;
     padding-bottom: 10%;
+    color: #379683;
+    a {
+        color: #EDF5E1;
+    }
     `;
     
     const MyNameStyle = styled.h1 `
     font-family: Calibre;
     font-size: 400%;
     text-align: center;
-    color: #e60071;
+    color: #053868;
     `
     const LastNameStyle = styled.span `
-        color: #8892b0;
+        color: #EDF5E1;
     `
 
 
@@ -51,17 +54,18 @@ const Main = () => {
             <Item>
                 <Typewriter
                 options={{
-                    strings: ['React', 'Javascript', 'Ruby', 'CSS', 'HTML', 'Rails'],
+                    // strings: ['React', 'Javascript', 'Ruby', 'CSS', 'HTML', 'Rails', "Unsatisfied with what I currently know - proud of what I've accomplished."],
+                    strings: "Unsatisfied with what I currently know - proud of what I've accomplished.",
                     autoStart: true,
-                    pauseFor: 800,
-                    loop: true,}}/>
+                    delay: 90,
+                    cursor: ""}}/>
                 </Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
                 <Item><NavLink activeStyle exact to="/about">About Me</NavLink></Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
-            <Item><NavLink activeStyle exact to="/skills">Skills</NavLink></Item>
+            <Item><NavLink activeStyle exact to="/skills">Projects</NavLink></Item>
             </Grid>
             <Grid xs={12} md={3} s={3}>
             <Item><NavLink activeStyle exact to="/contact">Contact</NavLink></Item>

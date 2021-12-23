@@ -19,9 +19,6 @@ const Contact = () => {
         a {
             color: white
         }
-        a:hover {
-            color: #e60071;;
-        }
     `
 
     return (
@@ -49,8 +46,8 @@ const Contact = () => {
             </Grid>
             <Grid xs={12} md={2.4} lg={2.4}>
             <StyledIconDiv>
-            <Link href="https://twitter.com/elijahsilverman" target="_blank" rel="noopener noreferrer">
-                <TwitterIcon sx={{ fontSize: 70 }}/>
+            <Link href="https://twitter.com/elijahsilverman"  target="_blank" rel="noopener noreferrer">
+                <TwitterIcon sx={{ fontSize: 70} }/>
             </Link>
                 </StyledIconDiv>
             </Grid>
