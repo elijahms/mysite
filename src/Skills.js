@@ -20,6 +20,7 @@ text-align: center;
 font-size: 200%;
 white-space: pre-line;
 padding-bottom: 10%;
+color: #EDF5E1;
 `
 
     return (

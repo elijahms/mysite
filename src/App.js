@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import ProjectsPage from './ProjectsPage';
 import ContactPage from './ContactPage';
 import AboutPage from './AboutPage';
+import Particle from './Particle';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
         <AllPages />
         </Route>
       </Switch>
+      {/* <Particle /> */}
       </>
   );
 }

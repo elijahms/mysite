@@ -32,7 +32,7 @@ const AboutMe = () => {
 
     return (
         <Container maxWidth="md" >
-            <h1>About Me</h1>
+            <h1 style={{color: '#EDF5E1'}} >About Me</h1>
             <AboutMeP> 
                 {aboutMeText}
             </AboutMeP>
