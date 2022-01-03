@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Grid } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -11,6 +11,8 @@ import Particle from './Particle';
 
 const Contact = () => {
 
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+
     const StyledIconDiv = styled.div `
     text-align: center;
     font-size: 2em;
@@ -22,46 +24,73 @@ const Contact = () => {
         }
     `
 
-    const Styledlink = styled(Link)`
+    const StyledIlink = styled(Link)`
         &:hover {
             color: #E1306C
         }
     `
+    const StyledLlink = styled(Link)`
+    &:hover {
+        color: #0077B5
+    }
+    `
+
+    const StyledGlink = styled(Link)`
+    &:hover {
+        color: #000000
+    }
+    `
+
+    const StyledTlink = styled(Link)`
+    &:hover {
+        color: #1DA1F2
+    }
+    `
+
+    const StyledElink = styled(Link)`
+    &:hover {
+        color: #657786
+    }
+    `
 
     return (
         <>
-        <Particle />
+        {screenWidth > 900 ? <Particle /> : null}
         <Grid container maxWidth="md" spacing={1} sx={{ zIndex: "1000"}}>
             <Grid xs={12} md={2.4} lg={2.4}>
-            <StyledIconDiv className = 'bounce rectangle' id = 'instagram'>
-                <Styledlink href="https://www.instagram.com/elijahsilverman/" target="_blank" rel="noopener noreferrer">
+            <StyledIconDiv className = 'bounce rectangle'>
+                <StyledIlink className = 'instagram' href="https://www.instagram.com/elijahsilverman/" target="_blank" rel="noopener noreferrer">
                 <InstagramIcon sx={{ fontSize: 70 }} />
-                </Styledlink>
+                </StyledIlink>
             </StyledIconDiv>
             </Grid>
             <Grid xs={12} md={2.4} lg={2.4}>
             <StyledIconDiv className = 'bounce rectangle' >
-                <Link href="https://www.linkedin.com/in/elijah-silverman-917a91a5/" target="_blank" rel="noopener noreferrer">
+                <StyledLlink href="https://www.linkedin.com/in/elijah-silverman-917a91a5/" target="_blank" rel="noopener noreferrer">
                     <LinkedInIcon sx={{ fontSize: 70 }}/>
-            </Link>
+            </StyledLlink>
             </StyledIconDiv>
             </Grid>
             <Grid xs={12} md={2.4} lg={2.4}>
             <StyledIconDiv className = 'bounce rectangle' >
-            <Link href="https://github.com/elijahms" target="_blank" rel="noopener noreferrer">
+            <StyledGlink href="https://github.com/elijahms" target="_blank" rel="noopener noreferrer">
                 <GitHubIcon sx={{ fontSize: 70 }}/>
-            </Link>
+            </StyledGlink>
                 </StyledIconDiv>
             </Grid>
             <Grid xs={12} md={2.4} lg={2.4}>
             <StyledIconDiv className = 'bounce rectangle' >
-            <Link href="https://twitter.com/elijahsilverman"  target="_blank" rel="noopener noreferrer">
+            <StyledTlink href="https://twitter.com/elijahsilverman"  target="_blank" rel="noopener noreferrer">
                 <TwitterIcon sx={{ fontSize: 70} }/>
-            </Link>
+            </StyledTlink>
                 </StyledIconDiv>
             </Grid>
             <Grid xs={12} md={2.4} lg={2.4}>
-            <StyledIconDiv className = 'bounce rectangle' ><Link href='mailto:elijahmsilverman@gmail.com' target="_blank" rel="noopener noreferrer"><EmailOutlinedIcon sx={{ fontSize: 77 }}/></Link></StyledIconDiv>
+            <StyledIconDiv className = 'bounce rectangle' >
+                <StyledElink href='mailto:elijahmsilverman@gmail.com' target="_blank" rel="noopener noreferrer">
+                    <EmailOutlinedIcon sx={{ fontSize: 77 }}/>
+                </StyledElink>
+                </StyledIconDiv>
             </Grid>
         </Grid>
         </>

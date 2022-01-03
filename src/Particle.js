@@ -1,17 +1,26 @@
 import Particles from "react-tsparticles";
 import Contact from "./Contact";
+import { useState } from "react";
 
 const Particle = () => {
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  function ParticleBounce() {
+    return windowWidth > 900 ? true : false
+      
+  }
   
     const particlesInit = (main) => {
     console.log(main);
-
     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
   };
 
   const particlesLoaded = (container) => {
     console.log(container);
   };
+
+  console.log(windowWidth)
 
   return (
     <Particles
@@ -37,7 +46,7 @@ const Particle = () => {
             },
             onDiv: [
               {
-                enable: true,
+                enable: {ParticleBounce},
                 selectors: ".bounce.rectangle",
                 mode: "bounce",
                 type: "circle"
