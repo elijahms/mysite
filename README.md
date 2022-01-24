@@ -1,12 +1,17 @@
-# Elijah Silverman's Site
+# Personal Site
 
-This website is built primarily on React and uses a number of libraries
+My personal site, like me, is always a work in progress. My goal is to showcase my capabilities, and have some fun. Enojy!
 
-//Parrallax from React Spring
+## Technologies
 
-//Color Scheme from: https://visme.co/blog/website-color-schemes/
+- React.js
+- Parrallax from React Spring
+- Material UI
 
-...and more.
+# Thank You's
 
+- Color Scheme from: https://visme.co/blog/website-color-schemes/
 
-email me @ elijahmsilverman@gmail.com
+## Contact
+
+[@elijahsilverman](mailto:elijahmsilverman@gmail.com)

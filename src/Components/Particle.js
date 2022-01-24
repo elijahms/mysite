@@ -3,15 +3,13 @@ import Contact from "./Contact";
 import { useState } from "react";
 
 const Particle = () => {
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   function ParticleBounce() {
-    return windowWidth > 900 ? true : false
-      
+    return windowWidth > 900 ? true : false;
   }
-  
-    const particlesInit = (main) => {
+
+  const particlesInit = (main) => {
     console.log(main);
     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
   };
@@ -20,7 +18,7 @@ const Particle = () => {
     console.log(container);
   };
 
-  console.log(windowWidth)
+  console.log(windowWidth);
 
   return (
     <Particles
@@ -46,11 +44,11 @@ const Particle = () => {
             },
             onDiv: [
               {
-                enable: {ParticleBounce},
+                enable: { ParticleBounce },
                 selectors: ".bounce.rectangle",
                 mode: "bounce",
-                type: "circle"
-              }
+                type: "circle",
+              },
             ],
             resize: true,
           },
@@ -116,4 +114,4 @@ const Particle = () => {
   );
 };
 
-export default Particle
+export default Particle;

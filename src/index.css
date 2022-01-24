@@ -2,19 +2,18 @@ html {
   scroll-behavior: smooth;
 }
 
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #5CDB95;
+  background-color: #5cdb95;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -71,13 +70,13 @@ code {
 }
 
 @font-face {
-  font-family: 'Calibre';
-  src: local('Calibre'), url(./Fonts/Calibre-Medium.ttf) format('truetype');
+  font-family: "Calibre";
+  src: local("Calibre"), url(./Fonts/Calibre-Medium.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'CalibreL';
-  src: local('CalibreL'), url(./Fonts/Calibre-Light.ttf) format('truetype');
+  font-family: "CalibreL";
+  src: local("CalibreL"), url(./Fonts/Calibre-Light.ttf) format("truetype");
 }
 
 a:link {
@@ -98,5 +97,5 @@ a:active {
 }
 
 .twitter-icon:hover {
-  color: "#00acee" 
+  color: "#00acee";
 }
