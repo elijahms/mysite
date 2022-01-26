@@ -1,6 +1,6 @@
 import React from "react";
 import Skills from "./Skills";
-import NavBar from "./Components/NavBar";
+import NavBar from "./NavBar";
 import styled from "styled-components";
 
 const ProjectsPage = () => {

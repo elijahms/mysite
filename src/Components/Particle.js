@@ -1,37 +1,18 @@
 import Particles from "react-tsparticles";
-import Contact from "./Contact";
-import { useState } from "react";
 
 const Particle = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  function ParticleBounce() {
-    return windowWidth > 900 ? true : false;
-  }
-
-  const particlesInit = (main) => {
-    console.log(main);
-    // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
-  };
-
-  const particlesLoaded = (container) => {
-    console.log(container);
-  };
-
-  console.log(windowWidth);
-
   return (
     <Particles
       id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
+      // init={particlesInit}
+      // loaded={particlesLoaded}
       options={{
         background: {
           color: {
             value: "#053868",
           },
         },
-        fpsLimit: 60,
+        fpsLimit: 45,
         interactivity: {
           events: {
             onClick: {
@@ -44,8 +25,8 @@ const Particle = () => {
             },
             onDiv: [
               {
-                enable: { ParticleBounce },
-                selectors: ".bounce.rectangle",
+                enable: true,
+                selectors: ".contact-icons",
                 mode: "bounce",
                 type: "circle",
               },

@@ -1,9 +1,10 @@
-import "./index.css";
+import "../index.css";
 import AllPages from "./AllPages";
 import { Route, Switch } from "react-router-dom";
-import ProjectsPage from "../ProjectsPage";
+import ProjectsPage from "./ProjectsPage";
 import ContactPage from "./ContactPage";
-import AboutPage from "../AboutPage";
+import Contact from "./Contact";
+import AboutPage from "./AboutPage";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <AboutPage />
         </Route>
         <Route path="/contact">
-          <ContactPage />
+          <Contact />
         </Route>
         <Route path="/">
           <AllPages />

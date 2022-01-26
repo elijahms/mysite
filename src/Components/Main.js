@@ -1,11 +1,12 @@
 import Grid from "@mui/material/Grid";
 import { useSpring, animated, config } from "@react-spring/web";
-import { useState } from "react";
 import styled from "styled-components";
 import Typewriter from "typewriter-effect";
-import resume from "./Static/resume.pdf";
+import resume from "../Static/resume.pdf";
 import { NavLink } from "react-router-dom";
-import NavBar from "./NavBar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 const Main = () => {
   const MyName = useSpring({
@@ -22,73 +23,73 @@ const Main = () => {
     config: config.molasses,
   });
 
-  const Item = styled.div`
-    font-family: Calibre;
-    font-size: 20pt;
-    text-align: center;
-    padding-bottom: 10%;
-    color: #379683;
-    a {
-      color: #edf5e1;
-    }
-  `;
-
-  const MyNameStyle = styled.h1`
-    font-family: Calibre;
-    font-size: 400%;
-    text-align: center;
-    color: #053868;
-  `;
-  const LastNameStyle = styled.span`
-    color: #edf5e1;
-  `;
+//   const Item = styled.div`
+//     max-width: 80%;
+//     margin-left: 10%;
+//     font-family: Calibre;
+//     font-size: 20pt;
+//     text-align: center;
+//     padding-bottom: 10%;
+//     color: #379683;
+//     a {
+//       color: #edf5e1;
+//     }
+//   `;
 
   return (
-    <Grid container maxWidth="md" spacing={2}>
-      <Grid xs={12}>
-        <animated.div style={MyName}>
-          <MyNameStyle>
-            Elijah <LastNameStyle>Silverman</LastNameStyle>
-          </MyNameStyle>
-        </animated.div>
-      </Grid>
-      <Grid xs={12}>
-        <Item>
-          <Typewriter
-            options={{
-              // strings: ['React', 'Javascript', 'Ruby', 'CSS', 'HTML', 'Rails', "Unsatisfied with what I currently know - proud of what I've accomplished."],
-              strings:
-                "Unsatisfied with what I currently know - proud of what I've accomplished.",
-              autoStart: true,
-              delay: 90,
-              cursor: "",
-            }}
-          />
-        </Item>
-      </Grid>
-      <Grid xs={12} md={3} s={3}>
-        <Item>
-          <NavLink activeStyle exact to="/about">
-            About Me
-          </NavLink>
-        </Item>
-      </Grid>
-      <Grid xs={12} md={3} s={3}>
-        <Item>
-          <NavLink activeStyle exact to="/skills">
+    <Container maxWidth="lg">
+      <animated.div style={MyName}>
+        <Typography
+          sx={{
+            fontFamily: "Calibre",
+            fontSize: "4rem",
+            textAlign: " center",
+            color: "#053868",
+          }}
+        >
+          Elijah <span style={{ color: "#edf5e1" }}>Silverman</span>
+        </Typography>
+      </animated.div>
+      <Typewriter
+        options={{
+          // strings: ['React', 'Javascript', 'Ruby', 'CSS', 'HTML', 'Rails', "Unsatisfied with what I currently know - proud of what I've accomplished."],
+          strings:
+            "Unsatisfied with what I currently know - proud of what I've accomplished.",
+          autoStart: true,
+          delay: 90,
+          cursor: "",
+        }}
+      />
+      <Grid
+        container
+        maxWidth="md"
+        sx={{
+          mt: 5,
+          fontFamily: "Calibre",
+          color: "#379683",
+          border: "2px solid red",
+          alignItems: "center",
+        }}
+        spacing={2}
+      >
+        <Grid item xs={12} md={3} lg={3}>
+          <Box>
+            <NavLink exact to="/about">
+              About Me
+            </NavLink>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={3} lg={3}>
+          <NavLink exact to="/skills">
             Projects
           </NavLink>
-        </Item>
-      </Grid>
-      <Grid xs={12} md={3} s={3}>
-        <Item>
-          <NavLink activeStyle exact to="/contact">
+        </Grid>
+        <Grid item xs={12} md={3} lg={3}>
+          <NavLink exact to="/contact">
             Contact
           </NavLink>
-        </Item>
-      </Grid>
-      <Grid xs={12} md={3} s={3}>
-        <Item>
+        </Grid>
+        <Grid item xs={12} md={3} lg={3}>
           <a
             style={LinkSpring}
             href={resume}
@@ -97,12 +98,12 @@ const Main = () => {
           >
             Resume
           </a>
-        </Item>
+        </Grid>
+        <Grid item style={LinkSpring} xs={12} md={12} lg={12}>
+          <div className="down-arrow"></div>
+        </Grid>
       </Grid>
-      <Grid style={LinkSpring} xs={12} md={12} s={12}>
-        <div className="down-arrow"></div>
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 

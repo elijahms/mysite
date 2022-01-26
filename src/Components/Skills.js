@@ -1,67 +1,115 @@
 import Grid from "@mui/material/Grid";
-import styled from "styled-components";
+import Box from "@mui/material/Box";
 import { useState } from "react";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 const Skills = () => {
-  const LinkstoProj = styled.a``;
   const [spacediv, setSpacediv] = useState(false);
   const [matchdiv, setMatchdiv] = useState(false);
-
-  const SkillDiv = styled.div`
-    text-align: center;
-    font-size: 200%;
-    white-space: pre-line;
-  `;
-
-  const TitleDiv = styled.div`
-    text-align: center;
-    font-size: 200%;
-    white-space: pre-line;
-    padding-bottom: 10%;
-    color: #edf5e1;
-  `;
+  const [notediv, setNotediv] = useState(false);
+  const [treadlitediv, setTreadlitediv] = useState(false);
 
   return (
-    <Grid container maxWidth="md" spacing={1}>
-      <Grid xs={12} md={12} lg={12}>
-        <TitleDiv>
-          <h1>Projects</h1>
-        </TitleDiv>
-      </Grid>
-      <Grid xs={12} md={6} lg={6}>
-        <SkillDiv
-          onMouseEnter={() => setSpacediv(true)}
-          onMouseLeave={() => setSpacediv(false)}
-        >
-          <LinkstoProj
-            href="https://stuck-in-space.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            alt="stuckinspace"
+    <Container sx={{pb: 2 }}>
+      <Typography
+        align="center"
+        sx={{
+          fontSize: "5rem",
+          pb: 15,
+          color: "#edf5e1",
+          fontFamily: "Calibre",
+          fontWeight: "bold",
+        }}
+      >
+        Projects
+      </Typography>
+      <Grid
+        container
+        maxWidth="lg"
+        spacing={4}
+        sx={{
+          minHeight: 250,
+          alignItems: "center",
+          textAlign: "center",
+          whiteSpace: "pre-line",
+          a: {
+            fontSize: "2rem",
+          },
+          "a:hover": {
+            textDecoration: "none",
+          },
+        }}
+      >
+        <Grid item xs={12} md={6} lg={3}>
+          <Box
+            onMouseEnter={() => setSpacediv(true)}
+            onMouseLeave={() => setSpacediv(false)}
           >
-            {spacediv
-              ? "A CLI-style game, built with React and Ruby"
-              : "Stuck In Space \n 🚀 👽 👾"}
-          </LinkstoProj>
-        </SkillDiv>
-      </Grid>
-      <Grid xs={12} md={6} lg={6}>
-        <SkillDiv
-          onMouseEnter={() => setMatchdiv(true)}
-          onMouseLeave={() => setMatchdiv(false)}
-        >
-          <LinkstoProj
-            href="https://theperfectmatch.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
+            <Typography
+              component="a"
+              href="https://stuck-in-space.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              alt="stuckinspace"
+            >
+              {spacediv
+                ? "A CLI-style game, built with React and Ruby"
+                : "Stuck-in-Space \n 🚀 👽 👾"}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Box
+            onMouseEnter={() => setMatchdiv(true)}
+            onMouseLeave={() => setMatchdiv(false)}
           >
-            {matchdiv
-              ? "A fun tool to match activites, built with React"
-              : "Match It \n 🎥 🍔 🎮"}
-          </LinkstoProj>
-        </SkillDiv>
+            <Typography
+              component="a"
+              href="https://theperfectmatch.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {matchdiv
+                ? "A fun tool to match activites, built with React"
+                : "Match It \n 🎥 🍔 🎮"}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Box
+            onMouseEnter={() => setNotediv(true)}
+            onMouseLeave={() => setNotediv(false)}
+          >
+            <Typography
+              component="a"
+              href="https://snap-note.herokuapp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {notediv ? "Organizing notes - uber easy" : "Snap-note \n 📅 📝 🗃️"}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Box
+            onMouseEnter={() => setTreadlitediv(true)}
+            onMouseLeave={() => setTreadlitediv(false)}
+          >
+            <Typography
+              component="a"
+              href="https://treadlite.herokuapp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {treadlitediv
+                ? "Calculate, track, compare your Carbon Footprint"
+                : "Treadlite \n 🌳 👣 🌲 "}
+            </Typography>
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 

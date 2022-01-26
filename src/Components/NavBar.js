@@ -1,47 +1,34 @@
-import React from "react";
-import { Grid } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
 
 const NavBar = () => {
-  const Item = styled.div`
-    font-family: Calibre;
-    font-size: 20pt;
-    text-align: center;
-    padding-top: 5%;
-  `;
-
   return (
-    <Grid container>
-      <Grid xs={4} md={4} s={4}>
-        <Item>
-          <NavLink exact to="/about">
-            About Me
-          </NavLink>
-        </Item>
-      </Grid>
-      <Grid xs={4} md={4} s={4}>
-        <Item>
-          <NavLink activeStyle exact to="/skills">
-            Skills
-          </NavLink>
-        </Item>
-      </Grid>
-      <Grid xs={4} md={4} s={4}>
-        <Item>
-          <NavLink activeStyle exact to="/contact">
-            Contact
-          </NavLink>
-        </Item>
-      </Grid>
-      <Grid xs={12} md={12} s={12}>
-        <Item>
-          <NavLink activeStyle exact to="/">
-            Home
-          </NavLink>
-        </Item>
-      </Grid>
-    </Grid>
+    <Container sx={{ alignItems: "center" }}>
+      <Stack
+        direction="row"
+        spacing={3}
+        sx={{
+          fontFamily: "Calibre",
+          fontSize: "1.2rem",
+          textAlign: "center",
+          pt: 5,
+        }}
+      >
+        <NavLink exact to="/about">
+          About Me
+        </NavLink>
+        <NavLink activeStyle exact to="/skills">
+          Skills
+        </NavLink>
+        <NavLink activeStyle exact to="/contact">
+          Contact
+        </NavLink>
+        <NavLink activeStyle exact to="/">
+          Home
+        </NavLink>
+      </Stack>
+    </Container>
   );
 };
 

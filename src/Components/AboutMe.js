@@ -36,8 +36,8 @@ const AboutMe = () => {
       <AboutMeP>{aboutMeText}</AboutMeP>
       <SkillsT>{"Some skills I've aquired along the way: \n\n"}</SkillsT>
       <Grid container spacing={0.5}>
-        {skills.map((s) => (
-          <Grid xs={4} md={4} lg={2}>
+        {skills.map((s, index) => (
+          <Grid key={index}item xs={4} md={4} lg={2}>
             <SkillsD>
               <p>{s}</p>
             </SkillsD>

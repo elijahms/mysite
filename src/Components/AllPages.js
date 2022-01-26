@@ -1,10 +1,8 @@
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import Main from "../Main";
+import Main from "./Main";
 import AboutMe from "./AboutMe";
 import Skills from "./Skills";
-// import Experience from './Experience';
-import Contact from "../Contact";
-import Particle from "./Particle";
+import Contact from "./Contact";
 
 const AllPages = () => {
   const parrStyle = {
