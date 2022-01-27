@@ -3,26 +3,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 const AboutMe = () => {
-  // const AboutMeP = styled.p`
-  //   font-size: 1.5em;
-  //   color: #edf5e1;
-  //   @media screen and (max-width: 600px) {
-  //     font-size: 20px;
-  //   }
-  // `;
-  // const SkillsT = styled.h2`
-  //   font-size: 1.5em;
-  //   text-align: center;
-  //   white-space: pre-line;
-  //   color: #edf5e1;
-  // `;
-
-  // const SkillsD = styled.div`
-  //   font-size: 1.5em;
-  //   text-align: center;
-  //   white-space: pre-line;
-  //   color: #edf5e1;
-  // `;
 
   const skills = ["HTML", "Javascript", "CSS", "React", "Ruby", "Rails"];
   const aboutMeText =
@@ -33,11 +13,28 @@ const AboutMe = () => {
       <Typography variant="h2" sx={{ mb: 5, color: "text.primary" }}>
         About Me
       </Typography>
-      <Typography variant="h5">{aboutMeText}</Typography>
+      <Typography
+        variant="h5"
+        sx={{
+          mb: 5,
+          color: "text.primary",
+          "@media only screen and (max-width: 500px)": {
+            fontSize: "1.2rem",
+          },
+        }}
+      >
+        {aboutMeText}
+      </Typography>
       <Typography variant="h6" sx={{ mt: 5, color: "text.primary" }}>
         {"Some skills I've aquired along the way: \n\n"}
       </Typography>
-      <Grid container justify="center" spacing={0.5} sx={{ mt: 5 }}>
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        spacing={0.5}
+        sx={{ mt: 5 }}
+      >
         {skills.map((s, index) => (
           <Grid key={index} item xs={4} md={4} lg={2}>
             <Typography align="center" variant="h5">

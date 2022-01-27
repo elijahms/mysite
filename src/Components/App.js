@@ -1,11 +1,10 @@
-import "../index.css";
+//import "../index.css";
 import AllPages from "./AllPages";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import CalibreMed from "../Fonts/Calibre-Medium.ttf";
-import RalewayReg from "../Fonts/Raleway-Medium.ttf";
+import RalewayReg from "../Fonts/Raleway-ExtraBold.ttf";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -13,6 +12,7 @@ function App() {
   const theme = createTheme({
     palette: {
       type: "light",
+      mode: prefersDarkMode ? "dark" : "light",
       primary: {
         main: "#0dec7c",
       },
@@ -27,7 +27,7 @@ function App() {
       },
     },
     typography: {
-      fontFamily: "Raleway",
+      fontFamily: "Raleway, Arial",
     },
     components: {
       MuiCssBaseline: {

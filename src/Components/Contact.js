@@ -1,4 +1,3 @@
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -7,9 +6,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Link from "@mui/material/Link";
 import Particle from "./Particle";
-import { Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
 
 const Contact = () => {
   let screenSize = window.innerWidth;

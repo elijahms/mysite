@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 
 const AllPages = () => {
   const parrStyle = {
@@ -30,13 +29,6 @@ const AllPages = () => {
     config: config.molasses,
   });
 
-  const LinkSpring = useSpring({
-    to: { opacity: 1 },
-    from: { opacity: 0 },
-    delay: 1000,
-    config: config.molasses,
-  });
-
   function scrollFunc(scroll) {
     if (ref.current) {
       ref.current.scrollTo(scroll);
@@ -48,16 +40,21 @@ const AllPages = () => {
       <ParallaxLayer factor={1} offset={0} speed={2.5} style={parrStyle}>
         <Container>
           <animated.div style={MyName}>
-            <Typography
-              variant="h1"
-              sx={{
-                // fontSize: "4rem",
-                textAlign: "center",
-                color: "text.secondary",
-              }}
-            >
-              Elijah <span style={{ color: "#edf5e1" }}>Silverman</span>
-            </Typography>
+            <Box>
+              <Typography
+                variant="h1"
+                sx={{
+                  // fontSize: "4rem",
+                  textAlign: "center",
+                  // color: "text.secondary",
+                  "@media only screen and (max-width: 500px)": {
+                    fontSize: "4rem",
+                  },
+                }}
+              >
+                Elijah <span style={{ color: "#edf5e1" }}>Silverman</span>
+              </Typography>
+            </Box>
           </animated.div>
           <Box
             sx={{
@@ -99,7 +96,7 @@ const AllPages = () => {
             </Grid>
             <Grid variant="text" size="large" item xs={12} md={3} lg={3}>
               <Button variant="text" size="large" onClick={() => scrollFunc(3)}>
-                Contact
+                Connect
               </Button>
             </Grid>
             <Grid item xs={12} md={3} lg={3}>
@@ -114,9 +111,13 @@ const AllPages = () => {
                 Resume
               </Button>
             </Grid>
-            <Grid item style={LinkSpring} xs={12} md={12} lg={12}>
-              <div className="down-arrow"></div>
-            </Grid>
+            <Box component="a" href="#learn-more">
+              <svg class="arrows">
+                <path class="a1" d="M0 0 L30 32 L60 0"></path>
+                <path class="a2" d="M0 20 L30 52 L60 20"></path>
+                <path class="a3" d="M0 40 L30 72 L60 40"></path>
+              </svg>
+            </Box>
           </Grid>
         </Container>
       </ParallaxLayer>

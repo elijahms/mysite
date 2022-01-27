@@ -33,9 +33,6 @@ const Skills = () => {
           a: {
             fontSize: "2rem",
           },
-          // "a:hover": {
-          //   textDecoration: "none",
-          // },
         }}
       >
         <Grid item xs={12} md={6} lg={3}>
