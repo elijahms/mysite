@@ -11,15 +11,12 @@ const Skills = () => {
   const [treadlitediv, setTreadlitediv] = useState(false);
 
   return (
-    <Container sx={{pb: 2 }}>
+    <Container sx={{ pb: 2 }}>
       <Typography
         align="center"
         sx={{
           fontSize: "5rem",
           pb: 15,
-          color: "#edf5e1",
-          fontFamily: "Calibre",
-          fontWeight: "bold",
         }}
       >
         Projects
@@ -36,9 +33,9 @@ const Skills = () => {
           a: {
             fontSize: "2rem",
           },
-          "a:hover": {
-            textDecoration: "none",
-          },
+          // "a:hover": {
+          //   textDecoration: "none",
+          // },
         }}
       >
         <Grid item xs={12} md={6} lg={3}>
@@ -87,7 +84,9 @@ const Skills = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {notediv ? "Organizing notes - uber easy" : "Snap-note \n 📅 📝 🗃️"}
+              {notediv
+                ? "Organizing notes - uber easy"
+                : "Snap-note \n 📅 📝 🗃️"}
             </Typography>
           </Box>
         </Grid>

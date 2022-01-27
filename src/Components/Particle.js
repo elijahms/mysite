@@ -4,8 +4,6 @@ const Particle = () => {
   return (
     <Particles
       id="tsparticles"
-      // init={particlesInit}
-      // loaded={particlesLoaded}
       options={{
         background: {
           color: {
@@ -41,7 +39,7 @@ const Particle = () => {
               size: 40,
             },
             push: {
-              quantity: 4,
+              quantity: 2,
             },
             repulse: {
               distance: 100,

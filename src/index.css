@@ -1,7 +1,3 @@
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -9,66 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #5cdb95;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.down-arrow {
-  position: absolute;
-  top: calc(100vh - 80px);
-  left: calc(50% - 14px);
-  width: 0;
-  height: 30px;
-  border: 2px solid;
-  border-radius: 2px;
-  animation: jumpInfinite 1.5s infinite;
-  color: #053868;
-}
-
-.down-arrow:after {
-  content: " ";
-  position: absolute;
-  top: 12px;
-  left: -10px;
-  width: 16px;
-  height: 16px;
-  border-bottom: 4px solid;
-  border-right: 4px solid;
-  border-radius: 4px;
-  transform: rotateZ(45deg);
-}
-
-@keyframes jumpInfinite {
-  0% {
-    margin-top: 0;
-  }
-  50% {
-    margin-top: 20px;
-  }
-  100% {
-    margin-top: 0;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* 
 @font-face {
   font-family: "Calibre";
   src: local("Calibre"), url(./Fonts/Calibre-Medium.ttf) format("truetype");
@@ -77,25 +16,26 @@ code {
 @font-face {
   font-family: "CalibreL";
   src: local("CalibreL"), url(./Fonts/Calibre-Light.ttf) format("truetype");
+} */
+
+@font-face {
+  font-family: "Raleway";
+  src: local("Raleway"), url(./Fonts/Raleway-Medium.ttf) format("truetype");
 }
 
 a:link {
   text-decoration: none;
-  color: #8892b0;
+  color: #0dec7c;
 }
 a:visited {
   text-decoration: none;
-  color: #8892b0;
+  color: #0dec7c;
 }
 a:hover {
   text-decoration: none;
-  color: #8892b0;
+  color: #0dec7c;
 }
 a:active {
   text-decoration: none;
-  color: #8892b0;
-}
-
-.twitter-icon:hover {
-  color: "#00acee";
+  color: #0dec7c;
 }
