@@ -37,7 +37,6 @@ const Skills = () => {
           a: {
             fontSize: "2rem",
           },
-          "@media only screen and (max-width: 500px)": {},
         }}
       >
         <Grid item xs={12} md={6} lg={3}>
@@ -47,7 +46,7 @@ const Skills = () => {
           >
             <Typography
               component="a"
-              href="https://stuck-in-space.netlify.app/"
+              href="https://www.loom.com/share/8db58058dc9a4bc09161d47fb4a2b199"
               target="_blank"
               rel="noopener noreferrer"
               alt="stuckinspace"
@@ -68,6 +67,7 @@ const Skills = () => {
               href="https://theperfectmatch.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
+              alt="theperfectmatch"
             >
               {matchdiv
                 ? "A fun tool to match activites, built with React"
@@ -82,9 +82,10 @@ const Skills = () => {
           >
             <Typography
               component="a"
-              href="https://snap-note.herokuapp.com/"
+              href="https://www.loom.com/share/769b5eeaf5464faea42578b015a38423?sharedAppSource=personal_library"
               target="_blank"
               rel="noopener noreferrer"
+              alt="snapnote"
             >
               {notediv
                 ? "Organizing notes - uber easy"
@@ -99,9 +100,10 @@ const Skills = () => {
           >
             <Typography
               component="a"
-              href="https://treadlite.herokuapp.com/"
+              href="https://www.loom.com/share/ae32fcb31548443dbf038873b9d6cf8d"
               target="_blank"
               rel="noopener noreferrer"
+              alt="treadlite"
             >
               {treadlitediv
                 ? "Calculate, track, compare your Carbon Footprint"

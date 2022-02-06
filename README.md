@@ -7,7 +7,6 @@ My personal site, like me, is always a work in progress. My goal is to showcase 
 [@elijahsilverman](mailto:elijahmsilverman@gmail.com)
 
 Check it out: [@Elijah Silverman's Site](https://elijahsilverman.com/)
-(please allow the server a few seconds to 'warm up')
 
 ## Technologies
 
