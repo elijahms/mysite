@@ -53,7 +53,7 @@ const Skills = () => {
             >
               {spacediv
                 ? "A CLI-style game, built with React and Ruby"
-                : "Stuck-in-Space \n 🚀 👽 👾"}
+                : "stuck-in-space \n 🚀 👽 👾"}
             </Typography>
           </Box>
         </Grid>
@@ -71,7 +71,7 @@ const Skills = () => {
             >
               {matchdiv
                 ? "A fun tool to match activites, built with React"
-                : "Match It \n 🎥 🍔 🎮"}
+                : "match-it \n 🎥 🍔 🎮"}
             </Typography>
           </Box>
         </Grid>
@@ -89,7 +89,7 @@ const Skills = () => {
             >
               {notediv
                 ? "Organizing notes - uber easy"
-                : "Snap-note \n 📅 📝 🗃️"}
+                : "snap-note \n 📅 📝 🗃️"}
             </Typography>
           </Box>
         </Grid>
@@ -107,7 +107,7 @@ const Skills = () => {
             >
               {treadlitediv
                 ? "Calculate, track, compare your Carbon Footprint"
-                : "Treadlite \n 🌳 👣 🌲 "}
+                : "treadlite \n 🌳 👣 🌲 "}
             </Typography>
           </Box>
         </Grid>

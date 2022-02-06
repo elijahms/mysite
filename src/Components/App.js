@@ -1,4 +1,3 @@
-//import "../index.css";
 import AllPages from "./AllPages";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";

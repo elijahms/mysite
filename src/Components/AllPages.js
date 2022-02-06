@@ -1,7 +1,7 @@
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { useRef } from "react";
 import AboutMe from "./AboutMe";
-import Skills from "./Skills";
+import Projects from "./Projects";
 import Contact from "./Contact";
 import Grid from "@mui/material/Grid";
 import { useSpring, animated, config } from "@react-spring/web";
@@ -57,14 +57,12 @@ const AllPages = () => {
           <Box
             sx={{
               mt: 5,
-              mb: 5,
               fontSize: "1.6rem",
               minHeight: "17vh",
               textAlign: "center",
               "@media only screen and (max-width: 500px)": {
                 fontSize: "1.4rem",
                 mt: 3,
-                mb: 0,
               },
             }}
           >
@@ -82,7 +80,6 @@ const AllPages = () => {
             container
             justify="center"
             sx={{
-              mt: 5,
               textAlign: "center",
               "@media only screen and (max-width: 500px)": {
                 mt: 0,
@@ -147,7 +144,7 @@ const AllPages = () => {
       />
 
       <ParallaxLayer offset={2} speed={0.4} style={parrStyle}>
-        <Skills />
+        <Projects />
       </ParallaxLayer>
 
       <ParallaxLayer
