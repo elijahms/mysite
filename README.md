@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/68ce951d-6e99-49f2-a446-5b865c7a9b35/deploy-status)](https://app.netlify.com/sites/loving-lamarr-c2f740/deploys)
+
 # Personal Site
 
 My personal site, like me, is always a work in progress. My goal is to showcase my capabilities, and have some fun. Enjoy!
