@@ -38,7 +38,11 @@ const AllPages = () => {
   return (
     <Parallax pages={4} ref={ref} style={{ top: "0", left: "0" }}>
       <ParallaxLayer factor={1} offset={0} speed={2.5} style={parrStyle}>
-        <Container>
+        <Container
+          sx={{
+            // border: "2px solid red",
+          }}
+        >
           <animated.div style={MyName}>
             <Box>
               <Typography
@@ -48,7 +52,7 @@ const AllPages = () => {
                   textAlign: "center",
                   // color: "text.secondary",
                   "@media only screen and (max-width: 500px)": {
-                    fontSize: "4rem",
+                    fontSize: "3.5rem",
                   },
                 }}
               >
@@ -61,8 +65,13 @@ const AllPages = () => {
               mt: 5,
               mb: 5,
               fontSize: "1.6rem",
-              minHeight: "15vh",
+              minHeight: "17vh",
               textAlign: "center",
+              "@media only screen and (max-width: 500px)": {
+                fontSize: "1.4rem",
+                mt: 3,
+                mb: 0,
+              },
             }}
           >
             <Typewriter
@@ -81,6 +90,9 @@ const AllPages = () => {
             sx={{
               mt: 5,
               textAlign: "center",
+              "@media only screen and (max-width: 500px)": {
+                mt: 0,
+              },
             }}
             spacing={2}
           >

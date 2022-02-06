@@ -17,6 +17,10 @@ const Skills = () => {
         sx={{
           fontSize: "5rem",
           pb: 15,
+          "@media only screen and (max-width: 500px)": {
+            fontSize: "4rem",
+            pb: 3,
+          },
         }}
       >
         Projects
@@ -33,6 +37,7 @@ const Skills = () => {
           a: {
             fontSize: "2rem",
           },
+          "@media only screen and (max-width: 500px)": {},
         }}
       >
         <Grid item xs={12} md={6} lg={3}>

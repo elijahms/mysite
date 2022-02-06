@@ -10,13 +10,21 @@ const AboutMe = () => {
 
   return (
     <Container maxWidth="md" sx={{ color: "text.primary" }}>
-      <Typography variant="h2" sx={{ mb: 5, color: "text.primary" }}>
+      <Typography
+        variant="h2"
+        sx={{
+          mb: 5,
+          color: "text.primary",
+          "@media only screen and (max-width: 500px)": {
+            mb: 2,
+          },
+        }}
+      >
         About Me
       </Typography>
       <Typography
         variant="h5"
         sx={{
-          mb: 5,
           color: "text.primary",
           "@media only screen and (max-width: 500px)": {
             fontSize: "1.2rem",
@@ -25,7 +33,17 @@ const AboutMe = () => {
       >
         {aboutMeText}
       </Typography>
-      <Typography variant="h6" sx={{ mt: 5, color: "text.primary" }}>
+      <Typography
+        variant="h6"
+        sx={{
+          mt: 5,
+          color: "text.primary",
+          "@media only screen and (max-width: 500px)": {
+            fontSize: "1.1rem",
+            mt: 2,
+          },
+        }}
+      >
         {"Some skills I've aquired along the way: \n\n"}
       </Typography>
       <Grid
@@ -33,7 +51,13 @@ const AboutMe = () => {
         justify="center"
         alignItems="center"
         spacing={0.5}
-        sx={{ mt: 5 }}
+        sx={{
+          mt: 5,
+          "@media only screen and (max-width: 500px)": {
+            fontSize: "1.1rem",
+            mt: 2,
+          },
+        }}
       >
         {skills.map((s, index) => (
           <Grid key={index} item xs={4} md={4} lg={2}>
