@@ -6,7 +6,7 @@ import Contact from "./Contact";
 import Grid from "@mui/material/Grid";
 import { useSpring, animated, config } from "@react-spring/web";
 import Typewriter from "typewriter-effect";
-import resume from "../Static/resume.pdf";
+import resume from "../Assets/resume.pdf";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -38,19 +38,13 @@ const AllPages = () => {
   return (
     <Parallax pages={4} ref={ref} style={{ top: "0", left: "0" }}>
       <ParallaxLayer factor={1} offset={0} speed={2.5} style={parrStyle}>
-        <Container
-          sx={{
-            // border: "2px solid red",
-          }}
-        >
+        <Container>
           <animated.div style={MyName}>
             <Box>
               <Typography
                 variant="h1"
                 sx={{
-                  // fontSize: "4rem",
                   textAlign: "center",
-                  // color: "text.secondary",
                   "@media only screen and (max-width: 500px)": {
                     fontSize: "3.5rem",
                   },
@@ -123,7 +117,7 @@ const AllPages = () => {
                 Resume
               </Button>
             </Grid>
-            <Box component="a" href="#learn-more">
+            <Box onClick={() => scrollFunc(1)}>
               <svg class="arrows">
                 <path class="a1" d="M0 0 L30 32 L60 0"></path>
                 <path class="a2" d="M0 20 L30 52 L60 20"></path>

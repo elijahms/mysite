@@ -7,20 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 
-@font-face {
-  font-family: "Calibre";
-  src: local("Calibre"), url(./Fonts/Calibre-Medium.ttf) format("truetype");
-}
-
-@font-face {
-  font-family: "CalibreL";
-  src: local("CalibreL"), url(./Fonts/Calibre-Light.ttf) format("truetype");
-} */
-
 @font-face {
   font-family: "Raleway";
-  src: local("Raleway"), url(./Fonts/Raleway-ExtraBold.ttf) format("truetype");
+  src: local("Raleway"), url(./Assets/Fonts/Raleway-ExtraBold.ttf) format("truetype");
 }
 
 a:link {
@@ -39,6 +28,8 @@ a:active {
   text-decoration: none;
   color: #0dec7c;
 }
+
+/*Homepage scroll arrows directing user down */
 
 .arrows {
   width: 60px;

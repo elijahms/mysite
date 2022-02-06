@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import RalewayReg from "../Fonts/Raleway-ExtraBold.ttf";
+import RalewayReg from "../Assets/Fonts/Raleway-ExtraBold.ttf";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
