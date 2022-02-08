@@ -59,27 +59,36 @@ const AboutMe = ({scrollFunc}) => {
         <Grid
           className={skillsClass}
           container
-          justify="center"
-          alignItems="center"
-          spacing={0.5}
+          // justify="center"
+          // alignItems="left"
+          // spacing={0}
           sx={{
             mt: 5,
             "@media only screen and (max-width: 500px)": {
-              fontSize: "1.1rem",
               mt: 2,
+              pr: 3,
+              pl: 3,
             },
           }}
         >
           {skills.map((s, index) => (
             <Grid key={index} item xs={4} md={4} lg={2}>
-              <Typography align="center" variant="h5">
+              <Typography
+                align="center"
+                variant="h5"
+                sx={{
+                  "@media only screen and (max-width: 500px)": {
+                    fontSize: '1rem'
+                  },
+                }}
+              >
                 {s}
               </Typography>
             </Grid>
           ))}
         </Grid>
       </Waypoint>
-      <ScrollToTop scrollFunc={scrollFunc}/>
+      <ScrollToTop scrollFunc={scrollFunc} />
     </Container>
   );
 };
