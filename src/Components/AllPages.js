@@ -131,11 +131,9 @@ const AllPages = () => {
         factor={1.5}
         style={{ backgroundColor: "#053868" }}
       />
-
       <ParallaxLayer id="about-me" offset={1} speed={0.4} style={parrStyle}>
-        <AboutMe />
+        <AboutMe scrollFunc={scrollFunc} />
       </ParallaxLayer>
-
       <ParallaxLayer
         offset={2}
         speed={2}
@@ -144,7 +142,7 @@ const AllPages = () => {
       />
 
       <ParallaxLayer offset={2} speed={0.4} style={parrStyle}>
-        <Projects />
+        <Projects scrollFunc={scrollFunc} />
       </ParallaxLayer>
 
       <ParallaxLayer
@@ -154,7 +152,7 @@ const AllPages = () => {
         style={{ backgroundColor: "#053868" }}
       />
       <ParallaxLayer offset={3} speed={0.4} style={parrStyle}>
-        <Contact />
+        <Contact scrollFunc={scrollFunc} />
       </ParallaxLayer>
     </Parallax>
   );

@@ -7,8 +7,9 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import Link from "@mui/material/Link";
 import Particle from "./Particle";
 import Stack from "@mui/material/Stack";
+import ScrollToTop from "./ScrollToTop";
 
-const Contact = () => {
+const Contact = ({ scrollFunc }) => {
   let screenSize = window.innerWidth;
   let stackDir = "row";
   if (screenSize < 600) {
@@ -112,6 +113,7 @@ const Contact = () => {
           </Link>
         </Box>
       </Stack>
+      <ScrollToTop scrollFunc={scrollFunc} />
     </>
   );
 };

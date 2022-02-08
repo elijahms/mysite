@@ -3,8 +3,10 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import "animate.css";
+import ScrollToTop from "./ScrollToTop";
 
-const Skills = () => {
+const Projects = ({scrollFunc}) => {
   const [spacediv, setSpacediv] = useState(false);
   const [matchdiv, setMatchdiv] = useState(false);
   const [notediv, setNotediv] = useState(false);
@@ -14,6 +16,7 @@ const Skills = () => {
     <Container sx={{ pb: 2 }}>
       <Typography
         align="center"
+        className="animate__animated animate__fadeInLeft"
         sx={{
           fontSize: "5rem",
           pb: 15,
@@ -112,8 +115,9 @@ const Skills = () => {
           </Box>
         </Grid>
       </Grid>
+      <ScrollToTop scrollFunc={scrollFunc} />
     </Container>
   );
 };
 
-export default Skills;
+export default Projects;
