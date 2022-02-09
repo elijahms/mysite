@@ -19,6 +19,7 @@ Site is created with:
 - Netlify
 - React Spring version 9.4.2 (for cool animations!)
 - Particles.js
+- [Animate.css](https://animate.style)
 
 ## Setup
 

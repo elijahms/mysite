@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import "animate.css";
 import ScrollToTop from "./ScrollToTop";
 
 const Projects = ({scrollFunc}) => {
@@ -16,9 +15,9 @@ const Projects = ({scrollFunc}) => {
     <Container sx={{ pb: 2 }}>
       <Typography
         align="center"
-        className="animate__animated animate__fadeInLeft"
         sx={{
           fontSize: "5rem",
+          color: "text.primary",
           pb: 15,
           "@media only screen and (max-width: 500px)": {
             fontSize: "4rem",

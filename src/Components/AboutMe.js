@@ -5,6 +5,7 @@ import { Waypoint } from "react-waypoint";
 import { useState } from "react";
 import ScrollToTop from "./ScrollToTop";
 
+
 const AboutMe = ({scrollFunc}) => {
   const [skillsClass, setSkillsClass] = useState(
     "basic"
@@ -55,13 +56,10 @@ const AboutMe = ({scrollFunc}) => {
       >
         {"Some skills I've aquired along the way: \n\n"}
       </Typography>
-      <Waypoint onEnter={enterSkillsDiv} onLeave={() => console.log("left")}>
+      <Waypoint onEnter={enterSkillsDiv}>
         <Grid
           className={skillsClass}
           container
-          // justify="center"
-          // alignItems="left"
-          // spacing={0}
           sx={{
             mt: 5,
             "@media only screen and (max-width: 500px)": {

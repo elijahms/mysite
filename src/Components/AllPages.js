@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const AllPages = () => {
   const parrStyle = {
@@ -29,6 +30,13 @@ const AllPages = () => {
     config: config.molasses,
   });
 
+  const DownArrow = useSpring({
+    to: { y: 0 },
+    from: { y: 20 },
+    loop: { reverse: true },
+    config: config.slow,
+  });
+
   function scrollFunc(scroll) {
     if (ref.current) {
       ref.current.scrollTo(scroll);
@@ -44,6 +52,7 @@ const AllPages = () => {
               <Typography
                 variant="h1"
                 sx={{
+                  color: "#053868",
                   textAlign: "center",
                   "@media only screen and (max-width: 500px)": {
                     fontSize: "3.5rem",
@@ -60,6 +69,7 @@ const AllPages = () => {
               fontSize: "1.6rem",
               minHeight: "17vh",
               textAlign: "center",
+              color: "text.primary",
               "@media only screen and (max-width: 500px)": {
                 fontSize: "1.4rem",
                 mt: 3,
@@ -114,14 +124,21 @@ const AllPages = () => {
                 Resume
               </Button>
             </Grid>
-            <Box onClick={() => scrollFunc(1)}>
-              <svg class="arrows">
+            {/* <svg class="arrows">
                 <path class="a1" d="M0 0 L30 32 L60 0"></path>
                 <path class="a2" d="M0 20 L30 52 L60 20"></path>
                 <path class="a3" d="M0 40 L30 72 L60 40"></path>
-              </svg>
-            </Box>
+              </svg> */}
           </Grid>
+          <Box sx={{ display: "flex" }}>
+            <Box sx={{ margin: "auto" }}>
+              <animated.div style={DownArrow} onClick={() => scrollFunc(1)}>
+                <KeyboardArrowDownRoundedIcon
+                  sx={{ fontSize: "70pt" }}
+                ></KeyboardArrowDownRoundedIcon>
+              </animated.div>
+            </Box>
+          </Box>
         </Container>
       </ParallaxLayer>
 
