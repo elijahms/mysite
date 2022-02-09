@@ -5,21 +5,31 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 
 const DownArrow = ({ scrollFunc }) => {
   const { y, color } = useSpring({
-    to: { y: 0, color: "#edf5e1" },
-    from: { y: 20, color: "#053868" },
+    to: { y: -20, color: "#edf5e1" },
+    from: { y: 30, color: "#053868" },
     loop: { reverse: true },
     config: {
-      duration: 1000,
+      duration: 1500,
     },
   });
   return (
-    <Box sx={{ display: "flex" }}>
-      <animated.div style={{ y, margin: "auto", color }} onClick={() => scrollFunc(1)}>
-        <KeyboardArrowDownRoundedIcon
-          sx={{ fontSize: "70pt" }}
-        ></KeyboardArrowDownRoundedIcon>
-      </animated.div>
-    </Box>
+    <animated.div
+      style={{
+        y,
+        color,
+        position: "absolute",
+        bottom: 0,
+        width: "100vw",
+        left: 0,
+        right: 0,
+        display: 'flex'
+      }}
+      onClick={() => scrollFunc(1)}
+    >
+      <KeyboardArrowDownRoundedIcon
+        sx={{ fontSize: "70pt", margin: 'auto'}}
+      ></KeyboardArrowDownRoundedIcon>
+    </animated.div>
   );
 };
 
