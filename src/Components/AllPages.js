@@ -3,39 +3,13 @@ import { useRef } from "react";
 import AboutMe from "./AboutMe";
 import Projects from "./Projects";
 import Contact from "./Contact";
-import Grid from "@mui/material/Grid";
-import { useSpring, animated, config } from "@react-spring/web";
-import Typewriter from "typewriter-effect";
-import resume from "../Assets/resume.pdf";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import DownArrow from "./DownArrow";
+import NavGrid from "./NavGrid";
+import HeroText from "./HeroText";
 
 const AllPages = () => {
-  const parrStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    color: "white",
-  };
-
   const ref = useRef();
-
-  const MyName = useSpring({
-    to: { opacity: 1 },
-    from: { opacity: 0 },
-    delay: 500,
-    config: config.molasses,
-  });
-
-  const DownArrow = useSpring({
-    to: { y: 0 },
-    from: { y: 20 },
-    loop: { reverse: true },
-    config: config.slow,
-  });
 
   function scrollFunc(scroll) {
     if (ref.current) {
@@ -45,130 +19,33 @@ const AllPages = () => {
 
   return (
     <Parallax pages={4} ref={ref} style={{ top: "0", left: "0" }}>
-      <ParallaxLayer factor={1} offset={0} speed={2.5} style={parrStyle}>
+      <ParallaxLayer offset={0} className="p-content-layer">
         <Container>
-          <animated.div style={MyName}>
-            <Box>
-              <Typography
-                variant="h1"
-                sx={{
-                  color: "#053868",
-                  textAlign: "center",
-                  "@media only screen and (max-width: 500px)": {
-                    fontSize: "3.5rem",
-                  },
-                }}
-              >
-                Elijah <span style={{ color: "#edf5e1" }}>Silverman</span>
-              </Typography>
-            </Box>
-          </animated.div>
-          <Box
-            sx={{
-              mt: 5,
-              fontSize: "1.6rem",
-              minHeight: "17vh",
-              textAlign: "center",
-              color: "text.primary",
-              "@media only screen and (max-width: 500px)": {
-                fontSize: "1.4rem",
-                mt: 3,
-              },
-            }}
-          >
-            <Typewriter
-              options={{
-                strings:
-                  "Unsatisfied with what I currently know - proud of what I've accomplished.",
-                autoStart: true,
-                delay: 90,
-                cursor: "",
-              }}
-            />
-          </Box>
-          <Grid
-            container
-            justify="center"
-            sx={{
-              textAlign: "center",
-              "@media only screen and (max-width: 500px)": {
-                mt: 0,
-              },
-            }}
-            spacing={2}
-          >
-            <Grid item xs={12} md={3} lg={3}>
-              <Button variant="text" size="large" onClick={() => scrollFunc(1)}>
-                About Me
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={3} lg={3}>
-              <Button variant="text" size="large" onClick={() => scrollFunc(2)}>
-                Projects
-              </Button>
-            </Grid>
-            <Grid variant="text" size="large" item xs={12} md={3} lg={3}>
-              <Button variant="text" size="large" onClick={() => scrollFunc(3)}>
-                Connect
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={3} lg={3}>
-              <Button
-                sx={{ color: "#edf5e1" }}
-                variant="text"
-                size="large"
-                href={resume}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Resume
-              </Button>
-            </Grid>
-            {/* <svg class="arrows">
-                <path class="a1" d="M0 0 L30 32 L60 0"></path>
-                <path class="a2" d="M0 20 L30 52 L60 20"></path>
-                <path class="a3" d="M0 40 L30 72 L60 40"></path>
-              </svg> */}
-          </Grid>
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ margin: "auto" }}>
-              <animated.div style={DownArrow} onClick={() => scrollFunc(1)}>
-                <KeyboardArrowDownRoundedIcon
-                  sx={{ fontSize: "70pt" }}
-                ></KeyboardArrowDownRoundedIcon>
-              </animated.div>
-            </Box>
-          </Box>
+          <HeroText />
+          <NavGrid scrollFunc={scrollFunc} />
+          <DownArrow scrollFunc={scrollFunc} />
         </Container>
       </ParallaxLayer>
-
-      <ParallaxLayer
-        offset={1}
-        speed={1.5}
-        factor={1.5}
-        style={{ backgroundColor: "#053868" }}
-      />
-      <ParallaxLayer id="about-me" offset={1} speed={0.4} style={parrStyle}>
+      <ParallaxLayer offset={1} speed={0.7} className="parallax-layer" />
+      <ParallaxLayer id="about-me" offset={1} className="p-content-layer">
         <AboutMe scrollFunc={scrollFunc} />
       </ParallaxLayer>
+      <ParallaxLayer offset={2} />
       <ParallaxLayer
+        id="projects"
         offset={2}
-        speed={2}
-        factor={1.5}
-        style={{ backgroundColor: "#053868" }}
-      />
-
-      <ParallaxLayer offset={2} speed={0.4} style={parrStyle}>
+        speed={0.4}
+        className="p-content-layer"
+      >
         <Projects scrollFunc={scrollFunc} />
       </ParallaxLayer>
-
+      <ParallaxLayer offset={3} className="parallax-layer" />
       <ParallaxLayer
+        id="contact"
         offset={3}
-        speed={2}
-        factor={1.5}
-        style={{ backgroundColor: "#053868" }}
-      />
-      <ParallaxLayer offset={3} speed={0.4} style={parrStyle}>
+        speed={0.4}
+        className="p-content-layer"
+      >
         <Contact scrollFunc={scrollFunc} />
       </ParallaxLayer>
     </Parallax>
