@@ -6,9 +6,9 @@ My personal site, like me, is always a work in progress. My goal is to showcase 
 
 ## Contact
 
-[@elijahsilverman](mailto:elijahmsilverman@gmail.com)
+[Get in Touch!](mailto:elijahmsilverman@gmail.com)
 
-Check it out: [@Elijah Silverman's Site](https://elijahsilverman.com/)
+Check it out: [Elijah Silverman's Website](https://elijahsilverman.com/)
 
 ## Technologies
 
@@ -20,6 +20,7 @@ Site is created with:
 - React Spring version 9.4.2 (for cool animations!)
 - Particles.js
 - [Animate.css](https://animate.style)
+- [React Waypoint](https://github.com/civiccc/react-waypoint)
 
 ## Setup
 
@@ -27,11 +28,8 @@ To run this project, install it locally using npm:
 
 ```
 $ cd ../mysite
-$ npm start --prefix client
-$ rails s
+$ npm start
 
 ```
 
 ## Credit
-
-- Color Scheme from: https://visme.co/blog/website-color-schemes/
