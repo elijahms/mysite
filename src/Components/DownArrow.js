@@ -1,6 +1,4 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import { useSpring, animated, config } from "@react-spring/web";
+import { useSpring, animated } from "@react-spring/web";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const DownArrow = ({ scrollFunc }) => {

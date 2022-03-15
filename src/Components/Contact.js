@@ -6,7 +6,6 @@ import ScrollToTop from "./ScrollToTop";
 import socialObj from "../Assets/contact_info";
 
 const Contact = ({ scrollFunc }) => {
-  let screenSize = window.innerWidth;
 
   const SocialLinks = () => {
     return socialObj.map((s) => {
@@ -30,9 +29,9 @@ const Contact = ({ scrollFunc }) => {
 
   return (
     <>
-      {screenSize > 530 && <Particle />}
+      {window.innerWidth > 500 && <Particle />}
       <Stack
-        direction={screenSize < 500 ? 'column' : 'row'}
+        direction={window.innerWidth < 500 ? "column" : "row"}
         alignItems="center"
         spacing={{ xs: 2, md: 3, lg: 20 }}
         sx={{

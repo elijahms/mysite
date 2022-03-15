@@ -1,24 +1,21 @@
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import ScrollToTop from "./ScrollToTop";
-import projectsObj from "../Assets/projects_info";
+import { projectsObj } from "../Assets/projects_info";
 
-const Projects = ({ scrollFunc }) => {
+const Projects = () => {
   const [projectDiv, setProjectDiv] = useState(null);
 
   return (
-    <Container sx={{ pb: 2 }}>
+    <Container sx={{ color: "text.primary" }}>
       <Typography
         align="center"
-        variant='h2'
         sx={{
-          color: "text.primary",
           pb: 15,
+          fontSize: "4rem",
           "@media only screen and (max-width: 500px)": {
-            fontSize: "4rem",
+            fontSize: "3rem",
             pb: 3,
           },
         }}
@@ -27,41 +24,52 @@ const Projects = ({ scrollFunc }) => {
       </Typography>
       <Grid
         container
-        maxWidth="lg"
-        spacing={4}
+        rowSpacing={0}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         sx={{
-          minHeight: 250,
-          alignItems: "center",
+          justifyContent: "center",
+          alignItems: "strech",
           textAlign: "center",
           whiteSpace: "pre-line",
           a: {
-            fontSize: "2rem",
+            fontSize: "1.7rem",
+            "@media only screen and (max-width: 500px)": {
+              fontSize: "1.5rem",
+            },
           },
         }}
       >
         {projectsObj.map((p) => {
           return (
-            <Grid key={p.name} item xs={12} md={6} lg={3}>
-              <Box
-                onMouseEnter={(e) => setProjectDiv(e.target.id)}
-                onMouseLeave={() => setProjectDiv(null)}
-                id={p.name}
+            <Grid
+              key={p.name}
+              sx={{
+                minHeight: "45vh",
+                "@media only screen and (max-width: 500px)": {
+                  minHeight: "0vh",
+                },
+              }}
+              onMouseEnter={(e) => setProjectDiv(e.target.id)}
+              onMouseLeave={() => setProjectDiv(null)}
+              id={p.name}
+              item
+              xs={12}
+              md={2}
+              lg={2}
+            >
+              <Typography
+                component="a"
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                alt={p.name}
               >
-                <Typography
-                  component="a"
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  alt="stuckinspace"
-                >
-                  {projectDiv === p.name ? p.blurb : p.tagline}
-                </Typography>
-              </Box>
+                {projectDiv === p.name ? p.blurb : p.tagline}
+              </Typography>
             </Grid>
           );
         })}
       </Grid>
-      {/* <ScrollToTop scrollFunc={scrollFunc} /> */}
     </Container>
   );
 };
