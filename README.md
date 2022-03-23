@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/68ce951d-6e99-49f2-a446-5b865c7a9b35/deploy-status)](https://app.netlify.com/sites/loving-lamarr-c2f740/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/68ce951d-6e99-49f2-a446-5b865c7a9b35/deploy-status)](https://app.netlify.com/sites/loving-lamarr-c2f740/deploys) [![CodeFactor](https://www.codefactor.io/repository/github/elijahms/mysite/badge)](https://www.codefactor.io/repository/github/elijahms/mysite)
 
 # Personal Site
 
