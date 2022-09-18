@@ -14,7 +14,7 @@ const socialObj = [
   },
   {
     name: "linkedin",
-    link: "https://www.linkedin.com/in/elijah-silverman",
+    link: "https://www.linkedin.com/in/elijahsilverman/",
     color: "#0077b5",
     fontSize: 70,
     icon: LinkedInIcon,
