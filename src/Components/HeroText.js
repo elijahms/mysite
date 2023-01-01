@@ -43,9 +43,9 @@ const HeroText = () => {
         <Typewriter
           options={{
             strings:
-              "Unsatisfied with what I currently know - proud of what I've accomplished.",
+              "transforming business needs into innovative software solutions with a unique blend of technical expertise and business acumen",
             autoStart: true,
-            delay: 90,
+            delay: 50,
             cursor: "",
           }}
         />

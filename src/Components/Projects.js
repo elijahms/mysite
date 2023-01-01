@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { projectsObj } from "../Assets/projects_info";
+import { projectsObj } from "./Constants";
 
 const Projects = () => {
   const [projectDiv, setProjectDiv] = useState(null);

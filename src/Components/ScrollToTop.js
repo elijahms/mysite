@@ -2,7 +2,6 @@ import ArrowCircleUpRoundedIcon from "@mui/icons-material/ArrowCircleUpRounded";
 import { useState } from "react";
 import { Waypoint } from "react-waypoint";
 
-
 const ScrollToTop = ({ scrollFunc }) => {
   const [scrollClass, setScrollClass] = useState("basic");
   function enterScrollArrow() {
@@ -23,7 +22,6 @@ const ScrollToTop = ({ scrollFunc }) => {
       >
         <ArrowCircleUpRoundedIcon
           className="scroll-up-button"
-          
           sx={{
             fontSize: "50px",
             color: "#06a86d",

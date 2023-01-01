@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Waypoint } from "react-waypoint";
 import { useState } from "react";
 import ScrollToTop from "./ScrollToTop";
-import { skills, aboutMeText } from "../Assets/projects_info";
+import { skills, aboutMeText } from "./Constants";
 
 const AboutMe = ({ scrollFunc }) => {
   const [skillsClass, setSkillsClass] = useState("basic");
@@ -15,9 +15,7 @@ const AboutMe = ({ scrollFunc }) => {
 
   return (
     <Container maxWidth="md" sx={{ color: "text.primary" }}>
-      <Typography sx={{ mb: "3vh", fontSize: '3rem' }}>
-        About Me
-      </Typography>
+      <Typography sx={{ mb: "3vh", fontSize: "3rem" }}>About Me</Typography>
       <Typography
         variant="h5"
         sx={{

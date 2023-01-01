@@ -3,10 +3,9 @@ import Link from "@mui/material/Link";
 import Particle from "./Particle";
 import Stack from "@mui/material/Stack";
 import ScrollToTop from "./ScrollToTop";
-import socialObj from "../Assets/contact_info";
+import { socialObj } from "./Constants";
 
 const Contact = ({ scrollFunc }) => {
-
   const SocialLinks = () => {
     return socialObj.map((s) => {
       return (
