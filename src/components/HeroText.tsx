@@ -7,46 +7,35 @@ import Box from '@mui/material/Box';
 
 const HeroText = () => {
   return (
-    <>
+    <Box
+      sx={{
+        mt: 4,
+        mb: 2,
+        textAlign: 'center',
+        minHeight: '10vh',
+      }}
+    >
       <Typography
         variant="h1"
         sx={{
           color: '#053868',
-          textAlign: 'center',
-          '@media only screen and (max-width: 500px)': {
-            fontSize: '3.5rem',
-          },
-        }}
-      >
-        Elijah <span style={{ color: '#edf5e1' }}>Silverman</span>
-      </Typography>
-      <Box
-        sx={{
-          mt: 5,
-          fontSize: '1.6rem',
-          minHeight: '17vh',
-          textAlign: 'center',
-          color: 'text.primary',
-          maxWidth: '600px',
-          mx: 'auto',
-          '@media only screen and (max-width: 500px)': {
-            fontSize: '1.4rem',
-            mt: 3,
-            maxWidth: '90%',
-          },
+          fontWeight: 700,
+          fontSize: { xs: '2.5rem', md: '4rem' },
+          minHeight: '1.2em',
         }}
       >
         <Typewriter
           options={{
-            strings:
-              'transforming business needs into innovative software solutions with a unique blend of technical expertise and business acumen',
+            strings: ['Elijah Silverman'],
             autoStart: true,
             delay: 50,
             cursor: '',
+            loop: true,
+            deleteSpeed: 30,
           }}
         />
-      </Box>
-    </>
+      </Typography>
+    </Box>
   );
 };
 
