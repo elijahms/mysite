@@ -1,9 +1,0 @@
-{
-  "short_name": "Elijah's Site",
-  "name": "Elijah Silverman's Website",
-  "icons": [],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#0dec7c",
-  "background_color": "#0dec7c"
-}
