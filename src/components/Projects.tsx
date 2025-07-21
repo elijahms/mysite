@@ -4,6 +4,7 @@ import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 
 const Projects = () => {
   const projects = [
@@ -81,17 +82,15 @@ const Projects = () => {
               },
             }}
           >
-            <Typography
-              component="a"
+            <Link
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              alt={project.name}
+              underline="none"
               sx={{
                 display: 'block',
                 width: '100%',
                 height: '100%',
-                textDecoration: 'none',
                 fontSize: '1.7rem',
                 lineHeight: 1.2,
                 '@media only screen and (max-width: 500px)': {
@@ -104,7 +103,7 @@ const Projects = () => {
               }}
             >
               {project.name}
-            </Typography>
+            </Link>
           </Grid>
         ))}
       </Grid>

@@ -38,17 +38,16 @@ const NavGrid = ({ scrollFunc }: NavGridProps) => {
         );
       })}
       <Grid>
-        <Link
+        <Button
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          component={Button}
           variant="text"
           size="large"
           sx={{ color: '#053868' }}
         >
           Resume
-        </Link>
+        </Button>
       </Grid>
     </Grid>
   );
