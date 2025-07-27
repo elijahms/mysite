@@ -5,9 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import HeroText from '@/components/HeroText';
 import NavGrid from '@/components/NavGrid';
-import AboutMe from '@/components/AboutMe';
-import Projects from '@/components/Projects';
-import Contact from '@/components/Contact';
+import SocialLinks from '@/components/Contact';
+import Box from '@mui/material/Box';
 
 export default function Home() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -33,45 +32,24 @@ export default function Home() {
     },
   });
 
-  const scrollToSection = (section: string) => {
-    const element = document.getElementById(section);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div style={{ minHeight: '100vh' }}>
-        {/* Hero Section */}
-        <div style={{ 
-          minHeight: '100vh', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'center',
-          padding: '20px'
-        }}>
-          <HeroText />
-          <NavGrid scrollFunc={scrollToSection} />
-        </div>
-
-        {/* About Section */}
-        <div id="about-me" style={{ minHeight: '100vh', padding: '20px' }}>
-          <AboutMe scrollFunc={scrollToSection} />
-        </div>
-
-        {/* Projects Section */}
-        <div id="projects" style={{ minHeight: '100vh', padding: '20px' }}>
-          <Projects />
-        </div>
-
-        {/* Contact Section */}
-        <div id="contact" style={{ minHeight: '100vh', padding: '20px' }}>
-          <Contact scrollFunc={scrollToSection} />
-        </div>
-      </div>
+          gap: 2,
+          py: 4,
+        }}
+      >
+        <HeroText />
+        <NavGrid />
+        <SocialLinks />
+      </Box>
     </ThemeProvider>
   );
 }
