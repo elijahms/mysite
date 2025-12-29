@@ -1,42 +1,18 @@
 'use client';
 
 import React from 'react';
-import Typewriter from 'typewriter-effect';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 
 const HeroText = () => {
   return (
-    <Box
-      sx={{
-        mt: 4,
-        mb: 2,
-        textAlign: 'center',
-        minHeight: '10vh',
-      }}
-    >
-      <Typography
-        variant="h1"
-        sx={{
-          color: '#053868',
-          fontWeight: 700,
-          fontSize: { xs: '2.5rem', md: '4rem' },
-          minHeight: '1.2em',
-        }}
-      >
-        <Typewriter
-          options={{
-            strings: ['Elijah Silverman'],
-            autoStart: true,
-            delay: 50,
-            cursor: '',
-            loop: true,
-            deleteSpeed: 30,
-          }}
-        />
-      </Typography>
-    </Box>
+    <div className="text-center space-y-4 py-4">
+      <h1 className="text-6xl md:text-8xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent pb-4 leading-tight">
+        Elijah Silverman
+      </h1>
+      <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide">
+        Full Stack Developer & Passionate Technologist
+      </p>
+    </div>
   );
 };
 
-export default HeroText; 
+export default HeroText;

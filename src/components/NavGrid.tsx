@@ -1,23 +1,27 @@
 'use client';
 
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import { Link } from '@mui/material';
+import { Button } from '@/components/ui/button';
 
 const NavGrid = () => {
   return (
-    <Button
-      href="/resume.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      variant="text"
-      size="large"
-      sx={{ color: '#053868', display: 'block', mx: 'auto', mt: 2 }}
-    >
-      Resume
-    </Button>
+    <div className="flex justify-center mt-8">
+      <Button
+        variant="default"
+        size="lg"
+        className="text-lg px-8 py-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 bg-primary text-primary-foreground font-semibold tracking-wide"
+        asChild
+      >
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Resume
+        </a>
+      </Button>
+    </div>
   );
 };
 
-export default NavGrid; 
+export default NavGrid;
