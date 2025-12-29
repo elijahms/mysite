@@ -109,11 +109,12 @@ const ChatWidget = () => {
           </CardHeader>
           
           <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
-            <ScrollArea className="flex-1 p-4">
-              <div className="flex flex-col gap-4">
-                {messages.map((msg, i) => (
-                  <div
-                    key={i}
+            <div className="flex-1 min-h-0">
+              <ScrollArea className="h-full p-4">
+                <div className="flex flex-col gap-4">
+                  {messages.map((msg, i) => (
+                    <div
+                      key={i}
                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
@@ -137,8 +138,9 @@ const ChatWidget = () => {
                 <div ref={scrollRef} />
               </div>
             </ScrollArea>
+          </div>
 
-            <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
+          <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
