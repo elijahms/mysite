@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     `;
 
     const response = await client.chat.completions.create({
-      model: "grok-beta",
+      model: "grok-4-1-fast-non-reasoning",
       messages: [
         { role: "system", content: systemPrompt },
         ...messages
