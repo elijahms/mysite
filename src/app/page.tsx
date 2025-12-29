@@ -6,6 +6,7 @@ import NavGrid from '@/components/NavGrid';
 import SocialLinks from '@/components/Contact';
 import Projects from '@/components/Projects';
 import { motion } from 'framer-motion';
+import ChatWidget from '@/components/ChatWidget';
 
 export default function Home() {
   return (
@@ -37,6 +38,8 @@ export default function Home() {
           <Projects />
         </motion.div>
       </section>
+
+      <ChatWidget />
 
       {/* Footer */}
       <footer className="py-8 w-full text-center text-muted-foreground text-sm border-t border-border/40 z-10 bg-background/50 backdrop-blur-sm">
