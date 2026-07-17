@@ -36,7 +36,7 @@ export function Contact() {
     <section id="contact" className="scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
       <div className="mx-auto w-full max-w-6xl">
         <m.div
-          className="rounded-2xl border border-border bg-card/80 px-6 py-12 sm:bg-card/60 sm:px-10 sm:py-16 sm:backdrop-blur-sm"
+          className="max-w-2xl"
           initial={reduce ? false : "hidden"}
           whileInView="visible"
           viewport={viewportOnce}

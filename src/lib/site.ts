@@ -38,10 +38,15 @@ export const site = {
       name: "Double Down Trivia",
       slug: "double-down-trivia",
       description:
-        "Real-time multiplayer trivia with room codes, point wagers, custom question packs, and live leaderboards — built for phones first.",
-      stack: ["Next.js", "Firebase", "TypeScript"],
+        "Real-time multiplayer trivia: join with a 4-letter room code, wager points on every answer, run custom question packs, and climb a win-rate leaderboard — mobile-first on Next.js and Firebase.",
+      highlights: [
+        "Live Firestore sync",
+        "Point wagers",
+        "Custom packs",
+        "Host controls",
+      ],
+      stack: ["Next.js", "TypeScript", "Firebase", "Tailwind"],
       href: "https://doubledowntrivia.web.app",
-      repo: "https://github.com/elijahms/trivia",
     },
     {
       name: "Treadlite",
@@ -50,14 +55,16 @@ export const site = {
         "A travel planner that helps people cut carbon without cutting the trip short.",
       stack: ["React Native", "Express", "MongoDB"],
       href: "https://www.loom.com/share/ae32fcb31548443dbf038873b9d6cf8d",
+      repo: "https://github.com/elijahms/treadlite",
     },
     {
       name: "Stuck in Space",
       slug: "stuck-in-space",
       description:
         "A browser arcade shooter with tight controls and that classic just-one-more-run pull.",
-      stack: ["JavaScript", "HTML5 Canvas"],
+      stack: ["JavaScript", "React", "Ruby"],
       href: "https://www.loom.com/share/8db58058dc9a4bc09161d47fb4a2b199",
+      repo: "https://github.com/elijahms/stuck-in-space",
     },
   ],
 } as const

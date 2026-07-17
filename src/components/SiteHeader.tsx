@@ -1,19 +1,14 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 export function SiteHeader() {
-  const { resolvedTheme, setTheme } = useTheme()
   const [scrolled, setScrolled] = useState(false)
-  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
     let ticking = false
     const onScroll = () => {
       if (ticking) return
@@ -32,7 +27,9 @@ export function SiteHeader() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[background-color,border-color,box-shadow] duration-300 ease-out",
-        scrolled ? "site-header--scrolled" : "border-b border-transparent bg-transparent"
+        scrolled
+          ? "site-header--scrolled"
+          : "border-b border-transparent bg-transparent"
       )}
     >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6 sm:px-10 lg:px-16">
@@ -44,11 +41,11 @@ export function SiteHeader() {
           <span className="text-primary">.</span>
         </a>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-0.5">
           <Button
             variant="ghost"
             size="sm"
-            className="text-muted-foreground transition-colors"
+            className="text-muted-foreground"
             render={<a href="#work" />}
           >
             Work
@@ -56,25 +53,10 @@ export function SiteHeader() {
           <Button
             variant="ghost"
             size="sm"
-            className="text-muted-foreground transition-colors"
+            className="text-muted-foreground"
             render={<a href="#contact" />}
           >
             Contact
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            className="ml-1 transition-transform duration-300 active:scale-95"
-            aria-label="Toggle theme"
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
-          >
-            {mounted && resolvedTheme === "dark" ? (
-              <Sun className="size-4" />
-            ) : (
-              <Moon className="size-4" />
-            )}
           </Button>
         </nav>
       </div>

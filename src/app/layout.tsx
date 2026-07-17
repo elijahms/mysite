@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { MotionProvider } from "@/components/MotionProvider"
 import { ThemeColor } from "@/components/ThemeColor"
@@ -62,22 +61,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${dmSans.variable} ${syne.variable} ${jetbrainsMono.variable}`}
     >
       <body className={`${dmSans.className} min-h-screen-safe antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ThemeColor />
-          <SiteBackground />
-          <MotionProvider>
-            <TooltipProvider>{children}</TooltipProvider>
-          </MotionProvider>
-        </ThemeProvider>
+        <ThemeColor />
+        <SiteBackground />
+        <MotionProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </MotionProvider>
       </body>
     </html>
   )

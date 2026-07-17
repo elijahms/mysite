@@ -15,13 +15,10 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
-      <footer className="border-t border-border px-6 py-8 sm:px-10 lg:px-16">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-xs text-muted-foreground">
+      <footer className="px-6 pb-10 pt-4 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-6xl border-t border-border/70 pt-8">
+          <p className="font-mono text-xs tracking-wide text-muted-foreground">
             © {new Date().getFullYear()} {site.name}
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Built with Next.js, shadcn & Base UI
           </p>
         </div>
       </footer>

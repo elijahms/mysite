@@ -79,6 +79,18 @@ export function Projects() {
                     <p className="max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
                       {project.description}
                     </p>
+                    {"highlights" in project && project.highlights ? (
+                      <ul className="flex flex-wrap gap-x-3 gap-y-1">
+                        {project.highlights.map((item) => (
+                          <li
+                            key={item}
+                            className="font-mono text-[11px] tracking-wide text-foreground/65 before:mr-2 before:text-primary before:content-['·']"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                     <div className="flex flex-wrap items-center gap-1.5">
                       {project.stack.map((tech) => (
                         <Badge

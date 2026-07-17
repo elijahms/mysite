@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (@media (prefers-color-scheme: dark));
 
 @theme inline {
   --font-sans: "DM Sans", "DM Sans Fallback", ui-sans-serif, system-ui, sans-serif;
@@ -65,31 +65,33 @@
   --glow-c: rgba(37, 99, 235, 0.08);
 }
 
-.dark {
-  --background-hex: #141824;
-  --background: oklch(0.16 0.02 265);
-  --foreground: oklch(0.96 0.008 250);
-  --card: oklch(0.2 0.025 265);
-  --card-foreground: oklch(0.96 0.008 250);
-  --popover: oklch(0.2 0.025 265);
-  --popover-foreground: oklch(0.96 0.008 250);
-  --primary: oklch(0.68 0.16 250);
-  --primary-foreground: oklch(0.16 0.03 265);
-  --secondary: oklch(0.26 0.025 265);
-  --secondary-foreground: oklch(0.96 0.008 250);
-  --muted: oklch(0.26 0.025 265);
-  --muted-foreground: oklch(0.7 0.02 250);
-  --accent: oklch(0.28 0.04 255);
-  --accent-foreground: oklch(0.96 0.008 250);
-  --destructive: oklch(0.65 0.2 25);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.68 0.16 250);
-  --signal: oklch(0.72 0.14 230);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-hex: #141824;
+    --background: oklch(0.16 0.02 265);
+    --foreground: oklch(0.96 0.008 250);
+    --card: oklch(0.2 0.025 265);
+    --card-foreground: oklch(0.96 0.008 250);
+    --popover: oklch(0.2 0.025 265);
+    --popover-foreground: oklch(0.96 0.008 250);
+    --primary: oklch(0.68 0.16 250);
+    --primary-foreground: oklch(0.16 0.03 265);
+    --secondary: oklch(0.26 0.025 265);
+    --secondary-foreground: oklch(0.96 0.008 250);
+    --muted: oklch(0.26 0.025 265);
+    --muted-foreground: oklch(0.7 0.02 250);
+    --accent: oklch(0.28 0.04 255);
+    --accent-foreground: oklch(0.96 0.008 250);
+    --destructive: oklch(0.65 0.2 25);
+    --border: oklch(1 0 0 / 12%);
+    --input: oklch(1 0 0 / 14%);
+    --ring: oklch(0.68 0.16 250);
+    --signal: oklch(0.72 0.14 230);
 
-  --glow-a: rgba(96, 165, 250, 0.14);
-  --glow-b: rgba(56, 189, 248, 0.1);
-  --glow-c: rgba(96, 165, 250, 0.07);
+    --glow-a: rgba(96, 165, 250, 0.14);
+    --glow-b: rgba(56, 189, 248, 0.1);
+    --glow-c: rgba(96, 165, 250, 0.07);
+  }
 }
 
 @layer base {
@@ -320,11 +322,13 @@
     --border: #e4e7ef;
   }
 
-  .dark {
-    --background: #141824;
-    --foreground: #f4f6fa;
-    --primary: #7cb0ff;
-    --muted-foreground: #a0a8b8;
-    --border: rgba(255, 255, 255, 0.12);
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #141824;
+      --foreground: #f4f6fa;
+      --primary: #7cb0ff;
+      --muted-foreground: #a0a8b8;
+      --border: rgba(255, 255, 255, 0.12);
+    }
   }
 }
