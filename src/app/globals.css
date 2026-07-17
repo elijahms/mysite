@@ -36,14 +36,14 @@
 }
 
 :root {
-  /* Cool luminous paper — not cream, not pure white */
+  /* Hex mirrors for Safari theme-color / overscroll chrome */
+  --background-hex: #f4f6fa;
   --background: oklch(0.975 0.008 250);
   --foreground: oklch(0.2 0.03 265);
   --card: oklch(0.99 0.004 250);
   --card-foreground: oklch(0.2 0.03 265);
   --popover: oklch(0.99 0.004 250);
   --popover-foreground: oklch(0.2 0.03 265);
-  /* Signal cobalt */
   --primary: oklch(0.5 0.2 255);
   --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.94 0.015 250);
@@ -58,9 +58,15 @@
   --ring: oklch(0.5 0.2 255);
   --signal: oklch(0.58 0.18 230);
   --radius: 0.75rem;
+
+  /* sRGB glow colors — reliable on iOS Safari (color-mix/oklch in gradients is flaky) */
+  --glow-a: rgba(37, 99, 235, 0.16);
+  --glow-b: rgba(14, 165, 233, 0.12);
+  --glow-c: rgba(37, 99, 235, 0.08);
 }
 
 .dark {
+  --background-hex: #141824;
   --background: oklch(0.16 0.02 265);
   --foreground: oklch(0.96 0.008 250);
   --card: oklch(0.2 0.025 265);
@@ -80,6 +86,10 @@
   --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.68 0.16 250);
   --signal: oklch(0.72 0.14 230);
+
+  --glow-a: rgba(96, 165, 250, 0.14);
+  --glow-b: rgba(56, 189, 248, 0.1);
+  --glow-c: rgba(96, 165, 250, 0.07);
 }
 
 @layer base {
@@ -89,14 +99,23 @@
 
   html {
     @apply scroll-smooth antialiased;
+    background-color: var(--background-hex);
+    /* Fill the iOS Safari rubber-band / overscroll area */
+    min-height: 100%;
+    min-height: -webkit-fill-available;
   }
 
   body {
     @apply bg-background text-foreground font-sans;
+    background-color: var(--background-hex);
+    min-height: 100%;
+    min-height: -webkit-fill-available;
+    /* Prevent iOS tap highlight flash */
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {
-    background: color-mix(in oklch, var(--primary) 28%, transparent);
+    background: color-mix(in srgb, var(--primary) 28%, transparent);
   }
 }
 
@@ -113,21 +132,156 @@
     text-wrap: balance;
   }
 
-  .atmosphere {
-    background:
-      radial-gradient(ellipse 80% 55% at 15% -10%, color-mix(in oklch, var(--primary) 18%, transparent), transparent 55%),
-      radial-gradient(ellipse 70% 50% at 95% 5%, color-mix(in oklch, var(--signal) 14%, transparent), transparent 50%),
-      radial-gradient(ellipse 60% 40% at 50% 100%, color-mix(in oklch, var(--primary) 8%, transparent), transparent 55%),
-      var(--background);
+  .min-h-screen-safe {
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
   }
+}
 
-  .grain {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 180px;
-    opacity: 0.035;
-    pointer-events: none;
+/* Fixed viewport background — works with iOS Safari overscroll */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--background-hex);
+  /* Cover notch / home indicator when viewport-fit=cover */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.site-bg__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.site-bg__glow--a {
+  top: -18%;
+  left: -12%;
+  width: min(72vw, 560px);
+  height: min(72vw, 560px);
+  background: var(--glow-a);
+  animation: glow-drift-a 18s ease-in-out infinite alternate;
+}
+
+.site-bg__glow--b {
+  top: -8%;
+  right: -16%;
+  width: min(64vw, 480px);
+  height: min(64vw, 480px);
+  background: var(--glow-b);
+  animation: glow-drift-b 22s ease-in-out infinite alternate;
+}
+
+.site-bg__glow--c {
+  bottom: -22%;
+  left: 28%;
+  width: min(80vw, 620px);
+  height: min(80vw, 620px);
+  background: var(--glow-c);
+  animation: glow-drift-c 26s ease-in-out infinite alternate;
+}
+
+.site-bg__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 160px;
+  mix-blend-mode: soft-light;
+}
+
+@keyframes glow-drift-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
   }
+  to {
+    transform: translate3d(6%, 8%, 0) scale(1.08);
+  }
+}
+
+@keyframes glow-drift-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-8%, 6%, 0) scale(1.1);
+  }
+}
+
+@keyframes glow-drift-c {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4%, -6%, 0) scale(1.06);
+  }
+}
+
+.site-header--scrolled {
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background-color: color-mix(in srgb, var(--background-hex) 85%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--border) 40%, transparent);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .site-header--scrolled {
+    background-color: color-mix(in srgb, var(--background-hex) 70%, transparent);
+    -webkit-backdrop-filter: saturate(1.2) blur(12px);
+    backdrop-filter: saturate(1.2) blur(12px);
+  }
+}
+
+/* Project row micro-interactions */
+.project-row {
+  transition:
+    background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-row__bar {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-row:hover .project-row__bar,
+.project-row:focus-visible .project-row__bar {
+  transform: scaleY(1);
+}
+
+.project-row__arrow {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-row:hover .project-row__arrow,
+.project-row:focus-visible .project-row__arrow {
+  transform: translate3d(3px, -3px, 0);
+  color: var(--primary);
+}
+
+.skill-chip {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.skill-chip:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+  background-color: color-mix(in srgb, var(--primary) 8%, var(--background));
+  color: var(--foreground);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -138,5 +292,39 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .site-bg__glow {
+    animation: none !important;
+  }
+}
+
+/* Soften expensive effects on coarse pointers / small screens */
+@media (max-width: 768px), (pointer: coarse) {
+  .site-bg__glow {
+    filter: blur(48px);
+    animation-duration: 28s;
+  }
+
+  .site-bg__grain {
+    opacity: 0.02;
+  }
+}
+
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    --background: #f4f6fa;
+    --foreground: #1a1f2e;
+    --primary: #2563eb;
+    --muted-foreground: #667085;
+    --border: #e4e7ef;
+  }
+
+  .dark {
+    --background: #141824;
+    --foreground: #f4f6fa;
+    --primary: #7cb0ff;
+    --muted-foreground: #a0a8b8;
+    --border: rgba(255, 255, 255, 0.12);
   }
 }

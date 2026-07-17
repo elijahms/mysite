@@ -1,63 +1,63 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { m, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { site } from "@/lib/site"
-
-const ease = [0.22, 1, 0.36, 1] as const
+import { easeOut, fadeUp, stagger } from "@/lib/motion"
 
 export function Hero() {
   const reduce = useReducedMotion()
 
   return (
-    <section className="relative flex min-h-dvh flex-col justify-center px-6 pb-20 pt-28 sm:px-10 lg:px-16">
-      <div className="mx-auto w-full max-w-6xl">
-        <motion.p
+    <section className="relative flex min-h-screen-safe flex-col justify-center px-6 pb-20 pt-28 sm:px-10 lg:px-16">
+      <m.div
+        className="mx-auto w-full max-w-6xl"
+        initial={reduce ? false : "hidden"}
+        animate="visible"
+        variants={stagger}
+      >
+        <m.p
           className="font-mono mb-6 text-xs tracking-[0.22em] text-muted-foreground uppercase"
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease }}
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: easeOut }}
         >
-          Portfolio
-        </motion.p>
+          Full stack · Creative tech
+        </m.p>
 
-        <motion.h1
+        <m.h1
           className="font-heading text-[clamp(3.25rem,12vw,8.5rem)] leading-[0.92] font-semibold tracking-tight text-foreground"
-          initial={reduce ? false : { opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.05, ease }}
+          variants={fadeUp}
+          transition={{ duration: 0.7, ease: easeOut }}
         >
           {site.name}
-        </motion.h1>
+        </m.h1>
 
-        <motion.div
+        <m.div
           className="mt-5 h-px w-full origin-left bg-gradient-to-r from-primary via-signal to-transparent"
-          initial={reduce ? false : { scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.9, delay: 0.35, ease }}
+          initial={reduce ? false : { scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.85, delay: 0.28, ease: easeOut }}
         />
 
-        <motion.p
+        <m.p
           className="mt-8 max-w-xl text-lg text-muted-foreground sm:text-xl"
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.45, ease }}
+          variants={fadeUp}
+          transition={{ duration: 0.55, ease: easeOut }}
         >
           <span className="font-medium text-foreground">{site.title}</span>
           <br />
           <span className="mt-3 block text-balance">{site.tagline}</span>
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           className="mt-10 flex flex-wrap items-center gap-3"
-          initial={reduce ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6, ease }}
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: easeOut }}
         >
           <Button
             size="lg"
-            className="h-11 gap-2 px-5 text-sm"
+            className="h-11 gap-2 px-5 text-sm transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0"
             render={
               <a
                 href={site.resumeUrl}
@@ -68,18 +68,18 @@ export function Hero() {
           >
             <FileText className="size-4" />
             View resume
-            <ArrowUpRight className="size-4 opacity-70" />
+            <ArrowUpRight className="size-4 opacity-70 transition-transform duration-300 group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
           </Button>
           <Button
             variant="outline"
             size="lg"
-            className="h-11 px-5 text-sm"
+            className="h-11 px-5 text-sm transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0"
             render={<a href="#work" />}
           >
             See work
           </Button>
-        </motion.div>
-      </div>
+        </m.div>
+      </m.div>
     </section>
   )
 }

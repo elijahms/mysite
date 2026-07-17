@@ -7,27 +7,24 @@ import { Contact } from "@/components/Contact"
 
 export default function Home() {
   return (
-    <div className="atmosphere relative min-h-dvh overflow-x-hidden">
-      <div className="grain absolute inset-0 z-0" aria-hidden />
-      <div className="relative z-10">
-        <SiteHeader />
-        <main>
-          <Hero />
-          <Skills />
-          <Projects />
-          <Contact />
-        </main>
-        <footer className="border-t border-border px-6 py-8 sm:px-10 lg:px-16">
-          <div className="mx-auto flex max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="font-mono text-xs text-muted-foreground">
-              © {new Date().getFullYear()} {site.name}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Built with Next.js, shadcn & Base UI
-            </p>
-          </div>
-        </footer>
-      </div>
+    <div className="relative min-h-screen-safe overflow-x-hidden">
+      <SiteHeader />
+      <main>
+        <Hero />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
+      <footer className="border-t border-border px-6 py-8 sm:px-10 lg:px-16">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono text-xs text-muted-foreground">
+            © {new Date().getFullYear()} {site.name}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Built with Next.js, shadcn & Base UI
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }

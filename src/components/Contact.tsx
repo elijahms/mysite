@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
-import { Github, Instagram, Linkedin, Mail } from "lucide-react"
+import { m, useReducedMotion } from "framer-motion"
+import { Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Tooltip,
@@ -9,8 +9,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { site } from "@/lib/site"
-
-const ease = [0.22, 1, 0.36, 1] as const
+import { easeOut, fadeUp, stagger, viewportOnce } from "@/lib/motion"
 
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -27,7 +26,6 @@ const icons = {
   GitHub: Github,
   LinkedIn: Linkedin,
   X: XIcon,
-  Instagram: Instagram,
   Email: Mail,
 } as const
 
@@ -37,42 +35,54 @@ export function Contact() {
   return (
     <section id="contact" className="scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
       <div className="mx-auto w-full max-w-6xl">
-        <motion.div
-          className="rounded-2xl border border-border bg-card/60 px-6 py-12 backdrop-blur-sm sm:px-10 sm:py-16"
-          initial={reduce ? false : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease }}
+        <m.div
+          className="rounded-2xl border border-border bg-card/80 px-6 py-12 sm:bg-card/60 sm:px-10 sm:py-16 sm:backdrop-blur-sm"
+          initial={reduce ? false : "hidden"}
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={stagger}
         >
-          <p className="font-mono mb-3 text-xs tracking-[0.22em] text-muted-foreground uppercase">
-            Connect
-          </p>
-          <h2 className="font-heading max-w-lg text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-            Let&apos;s build something worth shipping.
-          </h2>
-          <p className="mt-4 max-w-md text-muted-foreground">
-            Open to collaborations, interesting problems, and good conversations.
-          </p>
+          <m.p
+            className="font-mono mb-3 text-xs tracking-[0.22em] text-muted-foreground uppercase"
+            variants={fadeUp}
+            transition={{ duration: 0.45, ease: easeOut }}
+          >
+            Contact
+          </m.p>
+          <m.h2
+            className="font-heading max-w-lg text-3xl font-semibold tracking-tight text-balance sm:text-5xl"
+            variants={fadeUp}
+            transition={{ duration: 0.55, ease: easeOut }}
+          >
+            Got a project in mind? I&apos;d love to hear about it.
+          </m.h2>
+          <m.p
+            className="mt-4 max-w-md text-muted-foreground"
+            variants={fadeUp}
+            transition={{ duration: 0.5, ease: easeOut }}
+          >
+            Reach out for collaborations, freelance work, or just to talk shop.
+          </m.p>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {site.socials.map((social, index) => {
+          <m.div
+            className="mt-8 flex flex-wrap gap-2"
+            variants={stagger}
+          >
+            {site.socials.map((social) => {
               const Icon = icons[social.label as keyof typeof icons]
               return (
-                <motion.div
+                <m.div
                   key={social.label}
-                  initial={reduce ? false : { opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: 0.05 * index, ease }}
+                  variants={fadeUp}
+                  transition={{ duration: 0.35, ease: easeOut }}
                 >
                   <Tooltip>
                     <TooltipTrigger
-                      delay={0}
                       render={
                         <Button
                           variant="outline"
                           size="icon-lg"
-                          className="transition-transform duration-300 hover:-translate-y-0.5"
+                          className="transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0"
                           nativeButton={false}
                           render={
                             <a
@@ -89,11 +99,11 @@ export function Contact() {
                     />
                     <TooltipContent>{social.label}</TooltipContent>
                   </Tooltip>
-                </motion.div>
+                </m.div>
               )
             })}
-          </div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   )

@@ -1,9 +1,8 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { m, useReducedMotion } from "framer-motion"
 import { site } from "@/lib/site"
-
-const ease = [0.22, 1, 0.36, 1] as const
+import { easeOut, fadeUp, stagger, viewportOnce } from "@/lib/motion"
 
 export function Skills() {
   const reduce = useReducedMotion()
@@ -11,30 +10,32 @@ export function Skills() {
   return (
     <section className="px-6 py-16 sm:px-10 lg:px-16">
       <div className="mx-auto w-full max-w-6xl">
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease }}
+        <m.div
+          initial={reduce ? false : "hidden"}
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={stagger}
         >
-          <p className="font-mono mb-6 text-xs tracking-[0.22em] text-muted-foreground uppercase">
-            Toolkit
-          </p>
+          <m.p
+            className="font-mono mb-6 text-xs tracking-[0.22em] text-muted-foreground uppercase"
+            variants={fadeUp}
+            transition={{ duration: 0.45, ease: easeOut }}
+          >
+            Stack
+          </m.p>
           <ul className="flex flex-wrap gap-x-3 gap-y-3">
-            {site.skills.map((skill, index) => (
-              <motion.li
+            {site.skills.map((skill) => (
+              <m.li
                 key={skill}
-                className="font-mono rounded-full border border-border bg-background/70 px-3.5 py-1.5 text-xs tracking-wide text-foreground/80"
-                initial={reduce ? false : { opacity: 0, scale: 0.96 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: index * 0.03, ease }}
+                className="skill-chip font-mono rounded-full border border-border bg-background/70 px-3.5 py-1.5 text-xs tracking-wide text-foreground/80"
+                variants={fadeUp}
+                transition={{ duration: 0.4, ease: easeOut }}
               >
                 {skill}
-              </motion.li>
+              </m.li>
             ))}
           </ul>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

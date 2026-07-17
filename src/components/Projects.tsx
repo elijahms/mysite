@@ -1,12 +1,11 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { m, useReducedMotion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { site } from "@/lib/site"
-
-const ease = [0.22, 1, 0.36, 1] as const
+import { easeOut, fadeUp, viewportOnce } from "@/lib/motion"
 
 export function Projects() {
   const reduce = useReducedMotion()
@@ -14,12 +13,13 @@ export function Projects() {
   return (
     <section id="work" className="scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
       <div className="mx-auto w-full max-w-6xl">
-        <motion.div
+        <m.div
           className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease }}
+          initial={reduce ? false : "hidden"}
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeUp}
+          transition={{ duration: 0.55, ease: easeOut }}
         >
           <div>
             <p className="font-mono mb-2 text-xs tracking-[0.22em] text-muted-foreground uppercase">
@@ -30,62 +30,86 @@ export function Projects() {
             </h2>
           </div>
           <p className="max-w-sm text-sm text-muted-foreground text-balance">
-            Live products and demos — games, tools, and experiments.
+            A few things I&apos;ve built end to end — live apps, demos, and the
+            occasional game.
           </p>
-        </motion.div>
+        </m.div>
 
         <Separator className="mb-2" />
 
         <ul className="flex flex-col">
-          {site.projects.map((project, index) => (
-            <motion.li
-              key={project.slug}
-              initial={reduce ? false : { opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: index * 0.08, ease }}
-            >
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative grid gap-4 border-b border-border py-8 transition-colors duration-300 hover:bg-accent/40 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)_auto] sm:items-center sm:gap-8 sm:px-3"
+          {site.projects.map((project, index) => {
+            const repo = "repo" in project ? project.repo : undefined
+
+            return (
+              <m.li
+                key={project.slug}
+                initial={reduce ? false : "hidden"}
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={fadeUp}
+                transition={{
+                  duration: 0.5,
+                  delay: reduce ? 0 : index * 0.08,
+                  ease: easeOut,
+                }}
+                className="project-row group relative border-b border-border transition-colors hover:bg-accent/40"
               >
-                <div className="absolute inset-y-0 left-0 w-0.5 origin-top scale-y-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-y-100" />
+                <div className="project-row__bar absolute inset-y-0 left-0 w-0.5 bg-primary" />
 
-                <div>
-                  <p className="font-mono mb-2 text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="font-heading text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-primary sm:text-3xl">
-                    {project.name}
-                  </h3>
-                </div>
+                <div className="relative grid gap-4 py-8 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)_auto] sm:items-center sm:gap-8 sm:px-3">
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 z-0"
+                    aria-label={`View ${project.name}`}
+                  />
 
-                <div className="space-y-3">
-                  <p className="max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.stack.map((tech) => (
-                      <Badge
-                        key={tech}
-                        variant="secondary"
-                        className="font-mono text-[10px] tracking-wide uppercase"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
+                  <div className="relative z-10 pointer-events-none">
+                    <p className="font-mono mb-2 text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="font-heading text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-primary sm:text-3xl">
+                      {project.name}
+                    </h3>
+                  </div>
+
+                  <div className="relative z-10 space-y-3 pointer-events-none">
+                    <p className="max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {project.stack.map((tech) => (
+                        <Badge
+                          key={tech}
+                          variant="secondary"
+                          className="font-mono text-[10px] tracking-wide uppercase"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {repo ? (
+                        <a
+                          href={repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono pointer-events-auto ml-1 text-[10px] tracking-wide text-muted-foreground uppercase underline-offset-4 transition-colors hover:text-primary hover:underline"
+                        >
+                          Source
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="project-row__arrow relative z-10 flex items-center gap-2 text-sm font-medium text-foreground/70 pointer-events-none">
+                    View
+                    <ArrowUpRight className="size-4" />
                   </div>
                 </div>
-
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground/70 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary">
-                  Open
-                  <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-              </a>
-            </motion.li>
-          ))}
+              </m.li>
+            )
+          })}
         </ul>
       </div>
     </section>

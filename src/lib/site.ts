@@ -2,7 +2,7 @@ export const site = {
   name: "Elijah Silverman",
   title: "Full Stack Developer & Creative Technologist",
   tagline:
-    "I build beautiful, intuitive, and performant web applications — with a sharp eye for craft and a love of solving hard problems.",
+    "I design and ship web apps that feel fast and intentional — from real-time multiplayer games like Double Down Trivia to tools people actually enjoy using.",
   email: "elijahmsilverman@gmail.com",
   resumeUrl: "/resume.pdf",
   socials: [
@@ -17,10 +17,6 @@ export const site = {
     {
       label: "X",
       href: "https://x.com/elijahsilverman",
-    },
-    {
-      label: "Instagram",
-      href: "https://www.instagram.com/elijahsilverman",
     },
     {
       label: "Email",
@@ -42,22 +38,24 @@ export const site = {
       name: "Double Down Trivia",
       slug: "double-down-trivia",
       description:
-        "Real-time multiplayer trivia — host live events, custom packs, and instant feedback.",
-      stack: ["React", "Firebase", "Node.js"],
+        "Real-time multiplayer trivia with room codes, point wagers, custom question packs, and live leaderboards — built for phones first.",
+      stack: ["Next.js", "Firebase", "TypeScript"],
       href: "https://doubledowntrivia.web.app",
+      repo: "https://github.com/elijahms/trivia",
     },
     {
       name: "Treadlite",
       slug: "treadlite",
       description:
-        "Sustainable travel planning that helps people shrink their carbon footprint.",
+        "A travel planner that helps people cut carbon without cutting the trip short.",
       stack: ["React Native", "Express", "MongoDB"],
       href: "https://www.loom.com/share/ae32fcb31548443dbf038873b9d6cf8d",
     },
     {
       name: "Stuck in Space",
       slug: "stuck-in-space",
-      description: "An arcade-style space shooter built for the browser.",
+      description:
+        "A browser arcade shooter with tight controls and that classic just-one-more-run pull.",
       stack: ["JavaScript", "HTML5 Canvas"],
       href: "https://www.loom.com/share/8db58058dc9a4bc09161d47fb4a2b199",
     },
