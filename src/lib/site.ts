@@ -6,6 +6,10 @@ export type Project = {
   href: string
   highlights?: readonly string[]
   repo?: string
+  demo?: {
+    src: string
+    poster: string
+  }
 }
 
 export const site = {
@@ -46,6 +50,10 @@ export const site = {
       ],
       stack: ["Next.js", "TypeScript", "Firebase", "Tailwind"],
       href: "https://doubledowntrivia.web.app",
+      demo: {
+        src: "/double-down-trivia.mp4",
+        poster: "/double-down-trivia.jpg",
+      },
     },
     {
       name: "Treadlite",
