@@ -1,27 +1,26 @@
+export type Project = {
+  name: string
+  slug: string
+  description: string
+  stack: readonly string[]
+  href: string
+  highlights?: readonly string[]
+  repo?: string
+}
+
 export const site = {
   name: "Elijah Silverman",
-  title: "Full Stack Developer & Creative Technologist",
+  title: "Full Stack Developer",
   tagline:
-    "I design and ship web apps that feel fast and intentional — from real-time multiplayer games like Double Down Trivia to tools people actually enjoy using.",
+    "I build web apps that feel fast in the hand. Double Down Trivia is the clearest example: rooms, wagers, custom packs, live on phones.",
   email: "elijahmsilverman@gmail.com",
   resumeUrl: "/resume.pdf",
+  year: 2026,
   socials: [
-    {
-      label: "GitHub",
-      href: "https://github.com/elijahms",
-    },
-    {
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/elijahsilverman/",
-    },
-    {
-      label: "X",
-      href: "https://x.com/elijahsilverman",
-    },
-    {
-      label: "Email",
-      href: "mailto:elijahmsilverman@gmail.com",
-    },
+    { label: "GitHub", href: "https://github.com/elijahms" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/elijahsilverman/" },
+    { label: "X", href: "https://x.com/elijahsilverman" },
+    { label: "Email", href: "mailto:elijahmsilverman@gmail.com" },
   ],
   skills: [
     "TypeScript",
@@ -38,7 +37,7 @@ export const site = {
       name: "Double Down Trivia",
       slug: "double-down-trivia",
       description:
-        "Real-time multiplayer trivia: join with a 4-letter room code, wager points on every answer, run custom question packs, and climb a win-rate leaderboard — mobile-first on Next.js and Firebase.",
+        "Real-time multiplayer trivia. Join with a 4-letter code, wager on every answer, run custom packs, and climb a win-rate board. Built for phones first.",
       highlights: [
         "Live Firestore sync",
         "Point wagers",
@@ -61,10 +60,10 @@ export const site = {
       name: "Stuck in Space",
       slug: "stuck-in-space",
       description:
-        "A browser arcade shooter with tight controls and that classic just-one-more-run pull.",
+        "A browser arcade shooter with tight controls and that just-one-more-run pull.",
       stack: ["JavaScript", "React", "Ruby"],
       href: "https://www.loom.com/share/8db58058dc9a4bc09161d47fb4a2b199",
       repo: "https://github.com/elijahms/stuck-in-space",
     },
-  ],
+  ] satisfies readonly Project[],
 } as const

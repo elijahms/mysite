@@ -7,7 +7,7 @@ import { Contact } from "@/components/Contact"
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen-safe overflow-x-hidden">
+    <div className="min-h-dvh overflow-x-hidden">
       <SiteHeader />
       <main>
         <Hero />
@@ -16,9 +16,9 @@ export default function Home() {
         <Contact />
       </main>
       <footer className="px-6 pb-10 pt-4 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-6xl border-t border-border/70 pt-8">
-          <p className="font-mono text-xs tracking-wide text-muted-foreground">
-            © {new Date().getFullYear()} {site.name}
+        <div className="mx-auto max-w-4xl border-t border-border pt-8">
+          <p className="font-mono text-[11px] tracking-wide text-muted-foreground">
+            © {site.year} {site.name}
           </p>
         </div>
       </footer>

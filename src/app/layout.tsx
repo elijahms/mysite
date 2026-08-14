@@ -1,37 +1,38 @@
 import type { Metadata, Viewport } from "next"
-import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google"
+import { DM_Sans, Geist_Mono, Sora } from "next/font/google"
 import "./globals.css"
-import { TooltipProvider } from "@/components/ui/tooltip"
-import { MotionProvider } from "@/components/MotionProvider"
-import { ThemeColor } from "@/components/ThemeColor"
-import { SiteBackground } from "@/components/SiteBackground"
+import { site } from "@/lib/site"
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  preload: true,
+})
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
+  preload: false,
 })
 
-const syne = Syne({
-  variable: "--font-syne",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: "swap",
-})
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
+  weight: ["400"],
   display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "Elijah Silverman",
-  description:
-    "Full Stack Developer & Creative Technologist. Builder of Double Down Trivia and other fast, intentional web apps.",
+  title: site.name,
+  description: `${site.title}. ${site.tagline}`,
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
-    title: "Elijah Silverman",
+    statusBarStyle: "black-translucent",
+    title: site.name,
   },
   icons: {
     icon: [
@@ -46,11 +47,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f6fa" },
-    { media: "(prefers-color-scheme: dark)", color: "#141824" },
-  ],
-  colorScheme: "light dark",
+  themeColor: "#111216",
+  colorScheme: "dark",
 }
 
 export default function RootLayout({
@@ -61,14 +59,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${syne.variable} ${jetbrainsMono.variable}`}
+      className={`${sora.variable} ${dmSans.variable} ${geistMono.variable} dark antialiased`}
     >
-      <body className={`${dmSans.className} min-h-screen-safe antialiased`}>
-        <ThemeColor />
-        <SiteBackground />
-        <MotionProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </MotionProvider>
+      <body className="min-h-dvh bg-background font-sans text-foreground">
+        <div className="atmosphere" aria-hidden />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   )
