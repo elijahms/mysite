@@ -30,5 +30,20 @@
     "eslint-config-next": "^16.3.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "js-yaml": "4.3.1",
+    "fast-uri": "3.1.5",
+    "flatted": "3.4.4",
+    "ip-address": "10.3.1",
+    "undici": "7.29.0",
+    "brace-expansion@1": "1.1.18",
+    "brace-expansion@5": "5.0.9",
+    "minimatch@3": "3.1.5",
+    "picomatch@2": "2.3.2",
+    "picomatch@4": "4.0.5",
+    "ajv@6": "6.15.0",
+    "hono": "4.12.34",
+    "@hono/node-server": "1.19.17"
   }
 }
