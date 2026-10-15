@@ -1,29 +1,40 @@
 import type { Metadata, Viewport } from "next"
-import { DM_Sans, Geist_Mono, Sora } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 import { site } from "@/lib/site"
 
-const sora = Sora({
+// Local files, same families and weights as the previous next/font/google setup.
+// next/font/google downloads CSS at build time, and Next 16.3 fails the Turbopack
+// build when Google returns an extensionless font URL.
+const sora = localFont({
+  src: [
+    { path: "../fonts/sora-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/sora-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/sora-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-sora",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
   preload: true,
+  adjustFontFallback: "Arial",
 })
 
-const dmSans = DM_Sans({
+const dmSans = localFont({
+  src: [
+    { path: "../fonts/dm-sans-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/dm-sans-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/dm-sans-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
   preload: false,
+  adjustFontFallback: "Arial",
 })
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: [{ path: "../fonts/geist-mono-latin-400-normal.woff2", weight: "400", style: "normal" }],
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-  weight: ["400"],
   display: "swap",
+  adjustFontFallback: false,
 })
 
 export const metadata: Metadata = {
