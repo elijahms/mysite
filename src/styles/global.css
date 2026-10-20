@@ -1,0 +1,210 @@
+@layer reset, base, layout;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  img,
+  video,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  img,
+  video {
+    height: auto;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+/* Limestone paper, navy ink, one ultramarine signal. */
+:root {
+  color-scheme: light dark;
+
+  --paper: #edeee8;
+  --paper-raised: #f6f6f2;
+  --ink: #121a2e;
+  --graphite: #535b6a;
+  --rule: #d2d4ca;
+  --signal: #2d46f5;
+  --signal-ink: #ffffff;
+
+  --display: var(--font-display), "Arial Narrow", sans-serif;
+  --text: var(--font-text), system-ui, sans-serif;
+
+  /* Major-third scale on an 18px body. */
+  --step--1: 0.875rem;
+  --step-0: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.4vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.3rem + 0.9vw, 1.95rem);
+  --step-3: clamp(1.9rem, 1.5rem + 1.8vw, 2.9rem);
+  --step-4: clamp(2.4rem, 1.7rem + 3.4vw, 4.6rem);
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --measure: 62ch;
+  --max: 84rem;
+  --radius-stage: clamp(14px, 1.6vw, 22px);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e1424;
+    --paper-raised: #151d33;
+    --ink: #e7e9ef;
+    --graphite: #9aa2b4;
+    --rule: #263049;
+    --signal: #8c9bff;
+    --signal-ink: #0e1424;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    background: var(--paper);
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--signal-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer layout {
+  .wrap {
+    width: 100%;
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .skip {
+    position: absolute;
+    left: var(--gutter);
+    top: -4rem;
+    z-index: 100;
+    padding: 0.6rem 1rem;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .skip:focus {
+    top: 1rem;
+  }
+
+  /* Text buttons. Pills, because everything else on the page is square-ish. */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    min-height: 2.875rem;
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.975rem;
+    text-decoration: none;
+    line-height: 1;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      border-color 160ms ease;
+  }
+  .button--solid {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .button--solid:hover {
+    background: var(--signal);
+    border-color: var(--signal);
+    color: var(--signal-ink);
+  }
+  .button--ghost:hover {
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .section-title {
+    font-size: var(--step-4);
+    font-stretch: 72%;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+}

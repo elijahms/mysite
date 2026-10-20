@@ -1,0 +1,537 @@
+---
+import { Picture } from "astro:assets"
+import ProjectText from "./ProjectText.astro"
+import DoubleDownDemo from "./DoubleDownDemo.astro"
+import snailMap from "@/assets/work/snail-mail-map.png"
+import snailPhone from "@/assets/work/snail-mail-phone.png"
+import treadlite from "@/assets/work/treadlite.png"
+import modateMatching from "@/assets/work/modate-matching.png"
+import modateSwipe from "@/assets/work/modate-swipe.png"
+import modateList from "@/assets/work/modate-list.png"
+---
+
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <h2 class="section-title work__title" id="work-title">Things I've built</h2>
+
+    <!-- Double Down Trivia -->
+    <article class="feature" aria-labelledby="p-double-down">
+      <div class="stage stage--dd">
+        <DoubleDownDemo />
+      </div>
+
+      <ProjectText
+        id="p-double-down"
+        name="Double Down Trivia"
+        lede="Real-time trivia where every answer is a bet."
+        stack={["Next.js", "React 19", "TypeScript", "Firestore", "Cloud Functions"]}
+        links={[{ label: "Play Double Down", href: "https://doubledowntrivia.web.app", primary: true }]}
+      >
+        <p>
+          Up to eight friends join a private room with a five-letter code, type their answers, and wager 1 to 10
+          points on each one. Right answers win the wager, wrong ones lose it, and the board remembers who called it.
+          Play a sample round right here.
+        </p>
+        <ul>
+          <li><strong>Taps feel instant.</strong> useOptimistic and transitions show your wager and answer the moment you lock in, while the server confirms in the background.</li>
+          <li><strong>Scores never race.</strong> Cloud Functions settle each round inside a Firestore transaction, so eight players locking in the same second still add up.</li>
+          <li><strong>Typos still count.</strong> Levenshtein matching allows one typo on short answers and two on long ones, but numbers must be exact. Misses can get a second look from an AI grader, and the host can overrule either.</li>
+          <li><strong>Games survive bad Wi-Fi.</strong> Dropped writes retry with exponential backoff, and the round reveals on its own if a phone goes quiet.</li>
+        </ul>
+      </ProjectText>
+    </article>
+
+    <!-- Snail Mail -->
+    <article class="feature feature--flip" aria-labelledby="p-snail-mail">
+      <div class="stage stage--snail">
+        <div class="snail__map">
+          <Picture
+          src={snailMap}
+          formats={["avif", "webp"]}
+          widths={[640, 960, 1400]}
+          sizes="(min-width: 84rem) 650px, (min-width: 64rem) 46vw, 86vw"
+          quality={72}
+          alt="Snail Mail's tracking map: a letter's route from Portland, Maine to Lisbon, carried by a snail"
+          loading="lazy"
+          decoding="async"
+          />
+        </div>
+        <div class="snail__phone">
+          <Picture
+            src={snailPhone}
+            formats={["avif", "webp"]}
+            widths={[260, 390, 780]}
+            sizes="(min-width: 84rem) 180px, (min-width: 64rem) 13vw, 28vw"
+            quality={72}
+            alt="Snail Mail on a phone: 'Mail that takes its sweet time.'"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <ProjectText
+        id="p-snail-mail"
+        name="Snail Mail"
+        lede="Letters that take their sweet time."
+        stack={["Next.js", "Vercel Workflow", "Postgres", "Drizzle", "AI SDK"]}
+        links={[{ label: "Send a letter", href: "https://snailmail-post.vercel.app", primary: true }]}
+      >
+        <p>
+          Write a letter, hand it to one of six carriers, from a pigeon to a message in a bottle to a snail, and pick
+          exactly how long it travels: an hour, or a year. The words stay sealed until it lands, and you can follow every
+          mile of the trip on the map.
+        </p>
+        <ul>
+          <li><strong>Delivery that can wait a year.</strong> Each letter is its own durable Vercel Workflow run that sleeps until arrival, then delivers and notifies. A daily sweep catches anything that slips.</li>
+          <li><strong>Maps drawn on the server.</strong> Routes are plotted with d3-geo over Natural Earth data and served as cacheable SVG layers, painted with CSS masks so the map follows the light or dark theme.</li>
+          <li><strong>Write it by hand, or have it written.</strong> Upload photos of a real handwritten letter, or have an image model trace your typed one onto airmail, kraft or cream stationery.</li>
+          <li><strong>Safe for strangers.</strong> Bot checks, rate limits, blocking, reporting and an 18+ pen-pal directory, in five languages.</li>
+        </ul>
+      </ProjectText>
+    </article>
+
+    <!-- MoDate -->
+    <article class="feature" aria-labelledby="p-modate">
+      <figure class="modate">
+        <div class="stage stage--modate">
+        <div class="modate__desk">
+          <Picture
+            src={modateMatching}
+            formats={["avif", "webp"]}
+            widths={[640, 960, 1400]}
+            sizes="(min-width: 84rem) 640px, (min-width: 64rem) 44vw, 86vw"
+            quality={72}
+            alt="MoDate's matching screen: a candidate's profile in the middle and scored potential matches on the right"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="modate__phones">
+          <div class="modate__phone modate__phone--back">
+            <Picture
+              src={modateList}
+              formats={["avif", "webp"]}
+              widths={[200, 390, 780]}
+              sizes="(min-width: 84rem) 170px, (min-width: 64rem) 12vw, 26vw"
+              quality={72}
+              alt="MOSwipe list mode on a phone: ranked matches with scores and Propose buttons"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="modate__phone modate__phone--front">
+            <Picture
+              src={modateSwipe}
+              formats={["avif", "webp"]}
+              widths={[200, 390, 780]}
+              sizes="(min-width: 84rem) 170px, (min-width: 64rem) 12vw, 26vw"
+              quality={72}
+              alt="MOSwipe card mode on a phone: one suggested match with dismiss, skip and propose buttons"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+        </div>
+        <figcaption class="modate__note">Screenshots use demo data. Every profile shown is made up.</figcaption>
+      </figure>
+
+      <ProjectText
+        id="p-modate"
+        name="MoDate"
+        lede="Volunteer matchmaking, with real tools for the matchmakers."
+        stack={["React 19", "Vite", "Firestore", "Cloud Functions", "SwiftUI"]}
+        links={[{ label: "Visit MoDate", href: "https://modate.org", primary: true }]}
+      >
+        <p>
+          MoDate Offline is free matchmaking for the Modern Orthodox community. Singles fill out a three-minute profile,
+          a volunteer connector gets to know them, and introductions arrive over WhatsApp. No app and no swiping for the
+          singles. The swiping happens on the other side, in the workspace the connectors use.
+        </p>
+        <ul>
+          <li><strong>A match engine both apps agree on.</strong> Pairs are scored on age range, religious level, Kohen rules, location and aliyah plans. The rules are tunable by admins and ported to Swift so web and iPhone rank the same way.</li>
+          <li><strong>MOSwipe for matchmakers.</strong> Swipe right to propose, left to dismiss, or switch to a ranked list, on the web or in the native SwiftUI app.</li>
+          <li><strong>Live, and fine offline.</strong> Firestore listeners keep every connector's view current, with an offline cache shared across tabs.</li>
+          <li><strong>Keeps volunteers moving.</strong> Transactional claims and handoffs, reminders by push, email and WhatsApp, AI screening of new signups, and a monthly points leaderboard.</li>
+        </ul>
+      </ProjectText>
+    </article>
+
+    <!-- Earlier work -->
+    <div class="earlier">
+      <h3 class="earlier__title">Earlier, 2021 to 2022</h3>
+
+      <div class="earlier__grid">
+        <article class="minor" aria-labelledby="p-treadlite">
+          <div class="stage stage--small stage--tread">
+            <div class="tread__bar" aria-hidden="true">
+              <span class="tread__mark">treadlite</span>
+              <span class="tread__nav">Friends</span>
+              <span class="tread__nav">Treadliter</span>
+              <span class="tread__nav">About</span>
+            </div>
+            <div class="tread__shot">
+              <Picture
+              src={treadlite}
+              formats={["avif", "webp"]}
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 84rem) 592px, (min-width: 56rem) 44vw, 92vw"
+              quality={65}
+              alt="Treadlite's landing page: a footprint pressed into dark soil"
+              loading="lazy"
+              decoding="async"
+              />
+            </div>
+          </div>
+          <ProjectText
+            id="p-treadlite"
+            size="small"
+            name="Treadlite"
+            lede="Plan the trip, then shrink its footprint."
+            stack={["React Native", "Express", "MongoDB"]}
+            links={[
+              { label: "Watch the demo", href: "https://www.loom.com/share/ae32fcb31548443dbf038873b9d6cf8d", primary: true },
+              { label: "Source", href: "https://github.com/elijahms/treadlite" },
+            ]}
+          >
+            <p>A travel planner that helps people cut carbon without cutting the trip short.</p>
+          </ProjectText>
+        </article>
+
+        <article class="minor" aria-labelledby="p-stuck-in-space">
+          <div class="stage stage--small stage--space" aria-hidden="true">
+            <div class="space__screen">
+              <p class="space__title">Stuck In Space</p>
+              <div class="space__stats">
+                <span>Score: 10000</span>
+                <span>Time: 00:42</span>
+                <span>Moves: 17</span>
+              </div>
+              <p class="space__copy">
+                Enter the realm of OUTER SPACE and make your way out, but beware of meteors, exploding satellites, and
+                billionaires' vanity rockets!
+              </p>
+              <p class="space__prompt">main://&gt;&gt;<span class="space__cursor"></span></p>
+            </div>
+          </div>
+          <ProjectText
+            id="p-stuck-in-space"
+            size="small"
+            name="Stuck in Space"
+            lede="A browser arcade game with a terminal soul."
+            stack={["JavaScript", "React", "Ruby"]}
+            links={[
+              { label: "Watch the demo", href: "https://www.loom.com/share/8db58058dc9a4bc09161d47fb4a2b199", primary: true },
+              { label: "Source", href: "https://github.com/elijahms/stuck-in-space" },
+            ]}
+          >
+            <p>Dodge debris, find the way out of orbit, and post your run to a global leaderboard.</p>
+          </ProjectText>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+
+  .work__title {
+    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  /* Layout: stage on one side, words on the other, swapping sides each time. */
+  .feature {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: clamp(5rem, 12vw, 9rem);
+  }
+
+  @media (min-width: 64rem) {
+    .feature {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .feature--flip {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+    .feature--flip .stage {
+      order: 2;
+    }
+  }
+
+  /* Each stage takes on the palette of the project it holds. */
+  .stage {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-stage);
+    isolation: isolate;
+  }
+
+  /* Double Down: the app's own near-black, with its spotlight from above. */
+  .stage--dd {
+    display: grid;
+    place-items: center;
+    padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 0%, rgb(255 255 255 / 0.1), transparent 70%),
+      #0a0a0c;
+  }
+
+  /* Snail Mail: postal navy, the desktop map with the phone laid over it. */
+  .stage--snail {
+    padding: clamp(1.25rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem) clamp(3.5rem, 10vw, 6rem);
+    background:
+      radial-gradient(ellipse 70% 60% at 85% 100%, rgb(209 59 66 / 0.22), transparent 70%),
+      #131c33;
+  }
+
+  .snail__map :global(img) {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.8);
+  }
+
+  .snail__phone {
+    position: absolute;
+    right: clamp(1rem, 5%, 3rem);
+    bottom: clamp(-6rem, -8vw, -2rem);
+    width: clamp(7.5rem, 28%, 13rem);
+    padding: 5px;
+    border-radius: 26px;
+    background: #0b1020;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12),
+      0 30px 60px -10px rgb(0 0 0 / 0.75);
+    rotate: 4deg;
+    transition: rotate 500ms var(--ease-out), translate 500ms var(--ease-out);
+  }
+
+  .stage--snail:hover .snail__phone {
+    rotate: 0deg;
+    translate: 0 -0.75rem;
+  }
+
+  .snail__phone :global(img) {
+    width: 100%;
+    border-radius: 21px;
+  }
+
+  /* MoDate: its navy and cyan, the desktop workspace with two phones fanned over it. */
+  .modate {
+    margin: 0;
+  }
+
+  .stage--modate {
+    padding: clamp(1.25rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem) clamp(5rem, 16vw, 9rem);
+    background:
+      radial-gradient(ellipse 70% 55% at 15% 100%, rgb(6 200 234 / 0.2), transparent 70%),
+      radial-gradient(ellipse 40% 35% at 95% 0%, rgb(251 207 20 / 0.08), transparent 70%),
+      #0b1020;
+  }
+
+  .modate__desk :global(img) {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.08),
+      0 24px 60px -24px rgb(0 0 0 / 0.85);
+  }
+
+  .modate__phones {
+    position: absolute;
+    left: clamp(1rem, 5%, 3rem);
+    bottom: clamp(-5rem, -6vw, -1.5rem);
+    display: flex;
+    width: clamp(10rem, 44%, 22rem);
+  }
+
+  .modate__phone {
+    flex: 1;
+    padding: 4px;
+    border-radius: 24px;
+    background: #070a14;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.12),
+      0 30px 60px -10px rgb(0 0 0 / 0.75);
+    transition: rotate 500ms var(--ease-out), translate 500ms var(--ease-out);
+  }
+
+  .modate__phone :global(img) {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .modate__phone--back {
+    rotate: -6deg;
+    translate: 0 1.5rem;
+  }
+
+  .modate__phone--front {
+    margin-left: -12%;
+    rotate: 4deg;
+  }
+
+  .stage--modate:hover .modate__phone--back {
+    rotate: -2deg;
+    translate: 0 0.5rem;
+  }
+
+  .stage--modate:hover .modate__phone--front {
+    rotate: 0deg;
+    translate: 0 -0.75rem;
+  }
+
+  .modate__note {
+    margin-top: 0.75rem;
+    color: var(--graphite);
+    font-size: var(--step--1);
+  }
+
+  /* Earlier work: smaller, side by side, still in their own colors. */
+  .earlier {
+    padding-top: clamp(2.5rem, 6vw, 4rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .earlier__title {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    font-size: var(--step-2);
+    font-stretch: 85%;
+    font-weight: 700;
+    color: var(--graphite);
+  }
+
+  .earlier__grid {
+    display: grid;
+    gap: clamp(4rem, 8vw, 5rem) clamp(2rem, 5vw, 4rem);
+  }
+
+  @media (min-width: 56rem) {
+    .earlier__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .minor {
+    display: grid;
+    gap: 1.75rem;
+    align-content: start;
+  }
+
+  .stage--small {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Treadlite: its green header over the footprint hero. */
+  .stage--tread {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: #1a1a1a;
+  }
+
+  .tread__bar {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.6rem, 2vw, 1.1rem);
+    padding: clamp(0.6rem, 2vw, 0.9rem) clamp(0.9rem, 3vw, 1.25rem);
+    background: #06714b;
+    color: #fff;
+    font-size: clamp(0.55rem, 1.2vw, 0.68rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tread__mark {
+    margin-right: auto;
+    color: #e4dcff;
+    font-family: var(--display);
+    font-size: clamp(0.95rem, 2.4vw, 1.25rem);
+    font-weight: 900;
+    font-stretch: 120%;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .tread__shot {
+    position: relative;
+    min-height: 0;
+  }
+
+  .tread__shot :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 50%;
+  }
+
+  /* Stuck in Space: the game's green-on-black terminal, rebuilt in markup. */
+  .stage--space {
+    display: grid;
+    place-items: center;
+    padding: clamp(0.9rem, 3vw, 1.75rem);
+    background: #000;
+    color: #39ff6a;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  .space__screen {
+    display: grid;
+    gap: clamp(0.5rem, 1.6vw, 0.9rem);
+    width: 100%;
+    height: 100%;
+    padding: clamp(0.75rem, 2.5vw, 1.25rem);
+    border: 1px solid #e8e8e8;
+    font-size: clamp(0.58rem, 1.15vw, 0.74rem);
+    line-height: 1.45;
+    align-content: start;
+  }
+
+  .space__title {
+    color: #fff;
+    font-size: clamp(0.9rem, 2.2vw, 1.25rem);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+
+  .space__stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .space__stats span {
+    padding: 0.3em 0.8em;
+    border: 1px solid #e8e8e8;
+  }
+
+  .space__prompt {
+    color: #9aa09c;
+  }
+
+  .space__cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    margin-left: 0.2em;
+    vertical-align: text-bottom;
+    background: #39ff6a;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

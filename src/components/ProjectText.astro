@@ -1,0 +1,117 @@
+---
+interface Link {
+  label: string
+  href: string
+  primary?: boolean
+}
+
+interface Props {
+  id: string
+  name: string
+  lede: string
+  stack: readonly string[]
+  links: readonly Link[]
+  size?: "large" | "small"
+}
+
+const { id, name, lede, stack, links, size = "large" } = Astro.props
+const Heading = size === "large" ? "h3" : "h4"
+---
+
+<div class:list={["text", `text--${size}`]}>
+  <Heading class="text__name" id={id}>{name}</Heading>
+  <p class="text__lede">{lede}</p>
+  <div class="text__body">
+    <slot />
+  </div>
+  <p class="text__stack"><span class="visually-hidden">Built with </span>{stack.join(", ")}</p>
+  <div class="text__links">
+    {
+      links.map((link) => (
+        <a
+          class:list={["button", link.primary ? "button--solid" : "button--ghost"]}
+          href={link.href}
+          target="_blank"
+          rel="noopener"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .text {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .text__name {
+    font-weight: 800;
+    font-stretch: 78%;
+    letter-spacing: -0.02em;
+  }
+
+  .text--large .text__name {
+    font-size: var(--step-4);
+  }
+
+  .text--small .text__name {
+    font-size: var(--step-3);
+  }
+
+  .text__lede {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .text__body {
+    display: grid;
+    gap: 1rem;
+    max-width: var(--measure);
+    color: var(--graphite);
+  }
+
+  .text__body :global(ul) {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .text__body :global(li) {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+
+  .text__body :global(li)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.68em;
+    width: 0.45rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .text__body :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .text__stack {
+    font-size: var(--step--1);
+    color: var(--graphite);
+    font-stretch: 88%;
+  }
+
+  .text__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    padding-top: 0.5rem;
+  }
+</style>

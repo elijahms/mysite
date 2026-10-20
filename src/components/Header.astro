@@ -1,0 +1,87 @@
+---
+import { site } from "@/data/site"
+
+interface Props {
+  current?: "home" | "resume"
+}
+
+const { current = "home" } = Astro.props
+---
+
+<header class="header">
+  <div class="wrap header__inner">
+    <a class="header__name" href="/">{site.name}</a>
+    <nav aria-label="Primary">
+      <ul class="header__nav">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/resume" aria-current={current === "resume" ? "page" : undefined}>Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-top: env(safe-area-inset-top);
+    background: color-mix(in oklab, var(--paper) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid transparent;
+  }
+
+  /* The rule fades in once the page has scrolled, with no JS. */
+  @supports (animation-timeline: scroll()) {
+    .header {
+      animation: header-rule linear both;
+      animation-timeline: scroll();
+      animation-range: 0 120px;
+    }
+    @keyframes header-rule {
+      to {
+        border-bottom-color: var(--rule);
+      }
+    }
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.75rem;
+  }
+
+  .header__name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 80%;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    text-decoration: none;
+  }
+
+  .header__nav {
+    display: flex;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 0;
+    list-style: none;
+    font-size: 0.95rem;
+  }
+
+  .header__nav a {
+    display: inline-block;
+    padding-block: 0.6rem;
+    color: var(--graphite);
+    text-decoration: none;
+    transition: color 140ms ease;
+  }
+
+  .header__nav a:hover,
+  .header__nav a[aria-current="page"] {
+    color: var(--ink);
+  }
+</style>
