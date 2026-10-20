@@ -1,0 +1,150 @@
+---
+import { site } from "@/data/site"
+
+const year = new Date().getFullYear()
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <h2 class="section-title" id="contact-title">Contact</h2>
+    <p class="contact__intro">Email is the best way to reach me.</p>
+
+    <div class="contact__email">
+      <a class="contact__address" href={`mailto:${site.email}`}>{site.email}</a>
+      <button class="button button--ghost contact__copy" type="button" data-copy={site.email}>
+        <span data-copy-label>Copy address</span>
+      </button>
+      <p class="visually-hidden" role="status" data-copy-status></p>
+    </div>
+
+    <ul class="contact__socials">
+      {
+        site.socials.map((social) => (
+          <li>
+            <a href={social.href} target="_blank" rel="noopener">
+              {social.label}
+            </a>
+          </li>
+        ))
+      }
+      <li><a href={site.resume}>Résumé</a></li>
+    </ul>
+  </div>
+
+  <footer class="wrap">
+    <div class="footer">
+      <p>© {year} {site.name}</p>
+    </div>
+  </footer>
+</section>
+
+<style>
+  .contact {
+    padding-top: clamp(4rem, 10vw, 8rem);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .contact__intro {
+    max-width: 40ch;
+    margin-top: 1.25rem;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--graphite);
+  }
+
+  .contact__email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .contact__address {
+    font-family: var(--display);
+    font-size: clamp(1.35rem, 8.2vw, 4.25rem);
+    font-weight: 700;
+    font-stretch: 68%;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+    padding-bottom: 0.08em;
+    transition:
+      background-size 380ms var(--ease-out),
+      color 160ms ease;
+  }
+
+  .contact__address:hover {
+    color: var(--signal);
+    background-size: 100% 2px;
+  }
+
+  .contact__copy {
+    min-width: 9.5rem;
+    justify-content: center;
+  }
+
+  .contact__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    margin-top: clamp(2rem, 5vw, 3rem);
+    padding: 0;
+    list-style: none;
+    font-weight: 600;
+  }
+
+  .contact__socials a {
+    display: inline-block;
+    padding-block: 0.5rem;
+    text-decoration-color: var(--rule);
+    transition:
+      color 140ms ease,
+      text-decoration-color 140ms ease;
+  }
+
+  .contact__socials a:hover {
+    color: var(--signal);
+    text-decoration-color: currentColor;
+  }
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    margin-top: clamp(4rem, 10vw, 7rem);
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--rule);
+    color: var(--graphite);
+    font-size: var(--step--1);
+  }
+</style>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-copy]")
+  const label = button?.querySelector<HTMLElement>("[data-copy-label]")
+  const status = document.querySelector<HTMLElement>("[data-copy-status]")
+
+  if (button && label && navigator.clipboard) {
+    let timer = 0
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? "")
+        label.textContent = "Copied"
+        if (status) status.textContent = "Email address copied"
+      } catch {
+        label.textContent = "Copy failed"
+      }
+      clearTimeout(timer)
+      timer = window.setTimeout(() => {
+        label.textContent = "Copy address"
+        if (status) status.textContent = ""
+      }, 2000)
+    })
+  } else if (button) {
+    button.hidden = true
+  }
+</script>

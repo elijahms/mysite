@@ -1,0 +1,275 @@
+---
+import { site } from "@/data/site"
+
+// Anybody's width axis is tuned per line so both lines land at the same
+// measure (~3.98em): "Elijah" stretched wide, "Silverman" pulled narrow.
+const widths = [135, 69]
+const lines = site.name.split(" ")
+let index = 0
+---
+
+<section class="hero wrap" id="top" aria-labelledby="hero-name">
+  <h1 class="name" id="hero-name" data-name aria-label={site.name}>
+    {
+      lines.map((line, lineIndex) => (
+        <span class="name__line" aria-hidden="true" style={`--base: ${widths[lineIndex] ?? 100}%`}>
+          {[...line].map((char) => (
+            <span class="name__char" style={`--i: ${index++}`}>
+              {char}
+            </span>
+          ))}
+        </span>
+      ))
+    }
+  </h1>
+
+  <div class="hero__foot">
+    <p class="hero__intro">
+      I build software people use every day, and I read bond markets for a living. Two years engineering the internal
+      tools behind Lazard's investment teams, now an analyst on its Global Fixed Income desk. Nights and weekends, I ship
+      things like the ones below.
+    </p>
+
+    <div class="hero__side">
+      <p class="hero__now">
+        <span class="hero__pulse" aria-hidden="true"></span>
+        <span>
+          {site.now.title}<br />
+          <span class="hero__muted">{site.now.org}, {site.location}</span>
+        </span>
+      </p>
+      <div class="hero__actions">
+        <a class="button button--solid" href={`mailto:${site.email}`}>Email me</a>
+        <a class="button button--ghost" href={site.resume}>Read my résumé</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    align-content: end;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-block: clamp(3rem, 10vw, 4rem) clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  @media (min-width: 48rem) and (min-height: 40rem) {
+    .hero {
+      min-height: calc(100svh - 3.75rem);
+    }
+  }
+
+  /*
+   * The name is the page's one loud moment. Each letter is its own span so the
+   * width axis of Anybody can move per letter: a pointer-driven ripple (see the
+   * script below) that keeps each line's length constant by widening letters
+   * near the pointer and narrowing the rest. On phones, drag a finger across it.
+   * The load-in uses transforms only, so it never shifts layout.
+   */
+  .name {
+    container-type: inline-size;
+    display: grid;
+    font-weight: 800;
+    line-height: 0.84;
+    letter-spacing: -0.015em;
+    text-wrap: nowrap;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .name__line {
+    display: block;
+    font-size: 24.8cqi;
+  }
+
+  .name__char {
+    display: inline-block;
+    font-stretch: var(--w, var(--base));
+    font-weight: var(--wt, 800);
+    transition:
+      font-stretch 420ms var(--ease-out),
+      font-weight 420ms var(--ease-out);
+    animation: settle 900ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i) * 40ms + 60ms);
+  }
+
+  @keyframes settle {
+    from {
+      opacity: 0;
+      scale: 0.35 1;
+      translate: 0 0.1em;
+    }
+    35% {
+      opacity: 1;
+    }
+  }
+
+  .hero__foot {
+    display: grid;
+    gap: 2rem;
+    padding-top: clamp(1.25rem, 3vw, 2rem);
+    border-top: 1px solid var(--rule);
+    animation: fade-in 600ms var(--ease-out) 450ms backwards;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .hero__foot {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+
+  .hero__intro {
+    max-width: 38ch;
+    font-size: var(--step-1);
+    line-height: 1.45;
+  }
+
+  .hero__side {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+  }
+
+  @media (min-width: 56rem) {
+    .hero__side {
+      justify-items: end;
+      text-align: right;
+    }
+    .hero__now {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .hero__now {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .hero__muted {
+    color: var(--graphite);
+    font-weight: 400;
+  }
+
+  .hero__pulse {
+    position: relative;
+    flex: none;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--signal);
+    translate: 0 -0.08rem;
+  }
+
+  .hero__pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    to {
+      scale: 3;
+      opacity: 0;
+    }
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>
+
+<script>
+  const name = document.querySelector<HTMLElement>("[data-name]")
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+  if (name && !still.matches) {
+    const chars = [...name.querySelectorAll<HTMLElement>(".name__char")]
+    const lines = [...name.querySelectorAll<HTMLElement>(".name__line")]
+    let centers: { x: number; y: number; line: number }[] = []
+    let frame = 0
+    let pointer: { x: number; y: number } | null = null
+
+    const measure = () => {
+      centers = chars.map((char) => {
+        const box = char.getBoundingClientRect()
+        const line = lines.findIndex((l) => l.contains(char))
+        return { x: box.left + box.width / 2 + scrollX, y: box.top + box.height / 2 + scrollY, line }
+      })
+    }
+
+    const render = () => {
+      frame = 0
+      if (!pointer) {
+        chars.forEach((char) => {
+          char.style.removeProperty("--w")
+          char.style.removeProperty("--wt")
+        })
+        return
+      }
+      const size = parseFloat(getComputedStyle(lines[0]).fontSize)
+      const reach = size * 1.1
+      const pull = centers.map(({ x, y }) => {
+        const dx = (pointer!.x - x) / reach
+        const dy = (pointer!.y - y) / (reach * 1.6)
+        return Math.exp(-(dx * dx + dy * dy))
+      })
+      // Balance each line around its own mean so the line keeps its length.
+      lines.forEach((line, lineIndex) => {
+        const base = parseFloat(line.style.getPropertyValue("--base")) || 100
+        const members = centers.flatMap((c, i) => (c.line === lineIndex ? [i] : []))
+        const mean = members.reduce((sum, i) => sum + pull[i], 0) / members.length
+        members.forEach((i) => {
+          const delta = pull[i] - mean
+          chars[i].style.setProperty("--w", `${Math.min(150, Math.max(50, base + delta * base * 0.75))}%`)
+          chars[i].style.setProperty("--wt", `${Math.round(Math.min(900, Math.max(500, 800 + delta * 260)))}`)
+        })
+      })
+    }
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(render)
+    }
+
+    // Start listening once the settle-in animation is done, so the two never fight.
+    const lastChar = chars[chars.length - 1]
+    lastChar.addEventListener(
+      "animationend",
+      () => {
+        measure()
+        name.addEventListener("pointermove", (event) => {
+          pointer = { x: event.pageX, y: event.pageY }
+          schedule()
+        })
+        const release = () => {
+          pointer = null
+          schedule()
+        }
+        name.addEventListener("pointerleave", release)
+        name.addEventListener("pointercancel", release)
+        name.addEventListener("pointerup", (event) => {
+          if (event.pointerType !== "mouse") release()
+        })
+        new ResizeObserver(measure).observe(name)
+      },
+      { once: true },
+    )
+  }
+</script>

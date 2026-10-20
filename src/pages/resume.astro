@@ -1,0 +1,659 @@
+---
+import Base from "@/layouts/Base.astro"
+import Header from "@/components/Header.astro"
+import { resume, resumeSections } from "@/data/resume"
+import { resumeMarkdown } from "@/lib/resume-markdown"
+
+const markdown = resumeMarkdown()
+const updated = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })
+---
+
+<Base
+  title={`Résumé | ${resume.name}`}
+  description={`${resume.name}: ${resume.headline}. Experience at Lazard Asset Management, projects, skills and education.`}
+>
+  <Header current="resume" />
+
+  <div class="doc wrap">
+    <aside class="side" aria-label="Résumé tools">
+      <nav class="toc" aria-label="On this page">
+        <p class="side__label">On this page</p>
+        <ol class="toc__list">
+          {
+            resumeSections.map((section) => (
+              <li>
+                <a class="toc__link" href={`#${section.id}`} data-toc={section.id}>
+                  {section.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <div class="actions">
+        <button class="action" type="button" data-copy-md>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="10" rx="2" /><path d="M13.5 6.5v-2a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1" /></svg>
+          <span data-copy-md-label>Copy as Markdown</span>
+        </button>
+        <a class="action" href="/resume.md" target="_blank" rel="noopener">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2" /><path d="M5.5 12.5v-5l2 2.5 2-2.5v5M14.5 7.5v5M12.5 10.5l2 2 2-2" /></svg>
+          View Markdown
+        </a>
+        <a class="action" href="/resume.pdf" download="Elijah-Silverman-Resume.pdf">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M6 9.5l4 4 4-4M4 16.5h12" /></svg>
+          Download PDF
+        </a>
+        <p class="visually-hidden" role="status" data-copy-md-status></p>
+      </div>
+    </aside>
+
+    <main id="main" class="page">
+      <header class="page__head">
+        <p class="page__updated">Updated {updated}</p>
+        <h1 class="page__name">{resume.name}</h1>
+        <p class="page__headline">{resume.headline}, {resume.location}</p>
+        <ul class="page__links">
+          {resume.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        </ul>
+      </header>
+
+      <section id="summary" class="block" aria-labelledby="h-summary">
+        <h2 class="block__title" id="h-summary"><a href="#summary">Summary</a></h2>
+        <p class="lead">{resume.summary}</p>
+      </section>
+
+      <section id="experience" class="block" aria-labelledby="h-experience">
+        <h2 class="block__title" id="h-experience"><a href="#experience">Experience</a></h2>
+        {
+          resume.experience.map((job) => (
+            <article class="job">
+              <h3 class="job__org">
+                {job.org}
+                <span class="job__place">{job.place}</span>
+              </h3>
+              {job.roles.map((role) => (
+                <div class="role">
+                  <div class="role__head">
+                    <h4 class="role__title">{role.title}</h4>
+                    <p class="role__dates">
+                      {role.start} to {role.end}
+                    </p>
+                  </div>
+                  <ul class="bullets">
+                    {role.bullets.map((bullet) => <li>{bullet}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </article>
+          ))
+        }
+      </section>
+
+      <section id="projects" class="block" aria-labelledby="h-projects">
+        <h2 class="block__title" id="h-projects"><a href="#projects">Projects</a></h2>
+        {
+          resume.projects.map((project) => (
+            <article class="role">
+              <div class="role__head">
+                <h3 class="role__title">
+                  <a href={project.href} target="_blank" rel="noopener">
+                    {project.name}
+                  </a>
+                </h3>
+                <p class="role__dates">{project.stack.join(", ")}</p>
+              </div>
+              <p class="role__summary">{project.summary}</p>
+              <ul class="bullets">
+                {project.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </section>
+
+      <section id="skills" class="block" aria-labelledby="h-skills">
+        <h2 class="block__title" id="h-skills"><a href="#skills">Skills</a></h2>
+        <dl class="skills">
+          {
+            resume.skills.map((group) => (
+              <div class="skills__row">
+                <dt>{group.label}</dt>
+                <dd>{group.items.join(", ")}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <section id="education" class="block" aria-labelledby="h-education">
+        <h2 class="block__title" id="h-education"><a href="#education">Education</a></h2>
+        {
+          resume.education.map((school) => (
+            <div class="role">
+              <div class="role__head">
+                <h3 class="role__title">{school.school}</h3>
+                <p class="role__dates">{school.place}</p>
+              </div>
+              <p class="role__summary">
+                {school.degree}. {school.detail}.
+              </p>
+            </div>
+          ))
+        }
+      </section>
+
+      <section id="certificates" class="block" aria-labelledby="h-certificates">
+        <h2 class="block__title" id="h-certificates"><a href="#certificates">Certificates</a></h2>
+        <ul class="bullets">
+          {resume.certificates.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script type="text/markdown" id="resume-markdown" set:html={markdown.replaceAll("</", "<\\/")} />
+</Base>
+
+<style>
+  /* Docs layout: sticky contents and tools on the left, the document on the right. */
+  .doc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 clamp(2rem, 6vw, 5rem);
+    padding-block: clamp(1.5rem, 4vw, 3rem) clamp(4rem, 10vw, 7rem);
+  }
+
+  @media (min-width: 60rem) {
+    .doc {
+      grid-template-columns: 13.5rem minmax(0, 46rem);
+      justify-content: center;
+    }
+  }
+
+  .side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-content: start;
+  }
+
+  @media (min-width: 60rem) {
+    .side {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+      max-height: calc(100dvh - 7rem);
+      overflow-y: auto;
+    }
+  }
+
+  .side__label {
+    margin-bottom: 0.75rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--graphite);
+  }
+
+  .toc__list {
+    display: grid;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--rule);
+  }
+
+  .toc__link {
+    display: block;
+    margin-left: -1px;
+    padding: 0.35rem 0 0.35rem 1rem;
+    border-left: 2px solid transparent;
+    color: var(--graphite);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition:
+      color 140ms ease,
+      border-color 140ms ease;
+  }
+
+  .toc__link:hover {
+    color: var(--ink);
+  }
+
+  .toc__link[aria-current="true"] {
+    border-left-color: var(--signal);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* On narrow screens the contents become a scrollable strip under the header. */
+  @media (max-width: 59.99rem) {
+    .side {
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .toc {
+      position: sticky;
+      top: calc(3.75rem + env(safe-area-inset-top));
+      z-index: 10;
+      order: 2;
+      margin-inline: calc(var(--gutter) * -1);
+      padding: 0.5rem var(--gutter);
+      background: color-mix(in oklab, var(--paper) 88%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .side__label {
+      display: none;
+    }
+    .toc__list {
+      display: flex;
+      gap: 0.25rem;
+      overflow-x: auto;
+      border-left: 0;
+      scrollbar-width: none;
+    }
+    .toc__link {
+      margin: 0;
+      padding: 0.4rem 0.75rem;
+      border: 0;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .toc__link[aria-current="true"] {
+      background: var(--ink);
+      color: var(--paper);
+    }
+  }
+
+  .actions {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 59.99rem) {
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.5rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: 0.925rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .action:hover {
+    border-color: var(--signal);
+    color: var(--signal);
+  }
+
+  .action svg {
+    flex: none;
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* The document itself. */
+  .page__head {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .page__updated {
+    margin-bottom: 1rem;
+    font-size: var(--step--1);
+    color: var(--graphite);
+  }
+
+  .page__name {
+    font-size: clamp(2.75rem, 8vw, 4.5rem);
+    font-weight: 800;
+    font-stretch: 72%;
+    letter-spacing: -0.02em;
+  }
+
+  .page__headline {
+    margin-top: 0.75rem;
+    font-size: var(--step-1);
+  }
+
+  .page__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.95rem;
+  }
+
+  .page__links a {
+    color: var(--graphite);
+    text-decoration-color: var(--rule);
+  }
+
+  .page__links a:hover {
+    color: var(--signal);
+  }
+
+  .block {
+    padding-top: clamp(2rem, 5vw, 3rem);
+    scroll-margin-top: 5rem;
+  }
+
+  @media (max-width: 59.99rem) {
+    .block {
+      scroll-margin-top: 8rem;
+    }
+  }
+
+  .block__title {
+    margin-bottom: 1.25rem;
+    font-size: var(--step-2);
+    font-weight: 800;
+    font-stretch: 80%;
+  }
+
+  .block__title a {
+    position: relative;
+    text-decoration: none;
+  }
+
+  /* Docs-style anchor: a # appears beside the heading on hover. */
+  .block__title a::before {
+    content: "#";
+    position: absolute;
+    right: 100%;
+    padding-right: 0.35em;
+    color: var(--signal);
+    opacity: 0;
+    transition: opacity 140ms ease;
+  }
+
+  .block__title a:hover::before,
+  .block__title a:focus-visible::before {
+    opacity: 1;
+  }
+
+  .lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  .job + .job {
+    margin-top: 2.25rem;
+  }
+
+  .job__org {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--text);
+    font-size: var(--step-1);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .job__place {
+    font-size: var(--step-0);
+    font-weight: 400;
+    color: var(--graphite);
+  }
+
+  .role + .role {
+    margin-top: 1.75rem;
+  }
+
+  .role__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.15rem 1rem;
+  }
+
+  .role__title {
+    font-family: var(--text);
+    font-size: var(--step-0);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  .role__title a {
+    text-decoration-color: var(--rule);
+  }
+
+  .role__title a:hover {
+    color: var(--signal);
+    text-decoration-color: currentColor;
+  }
+
+  .role__dates {
+    font-size: var(--step--1);
+    color: var(--graphite);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .role__summary {
+    margin-top: 0.35rem;
+    color: var(--graphite);
+  }
+
+  .bullets {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-left: 1.1rem;
+  }
+
+  .bullets li::marker {
+    color: var(--graphite);
+  }
+
+  .skills {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .skills__row {
+    display: grid;
+    gap: 0.25rem 1.5rem;
+  }
+
+  @media (min-width: 40rem) {
+    .skills__row {
+      grid-template-columns: 11rem minmax(0, 1fr);
+    }
+  }
+
+  .skills dt {
+    font-weight: 600;
+  }
+
+  .skills dd {
+    margin: 0;
+    color: var(--graphite);
+  }
+
+  /* Print: just the document, sized for paper. This is what the PDF is made from. */
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.55in 0.6in;
+    }
+    :global(html),
+    :global(body) {
+      background: #fff !important;
+      color: #111 !important;
+      font-size: 9.6pt;
+      line-height: 1.4;
+    }
+    :global(.header),
+    :global(.skip),
+    .side,
+    .page__updated {
+      display: none !important;
+    }
+    .doc {
+      display: block;
+      padding: 0;
+      max-width: none;
+    }
+    .page__head {
+      padding-bottom: 10pt;
+      border-color: #ccc;
+    }
+    .page__name {
+      font-size: 26pt;
+    }
+    .page__headline {
+      margin-top: 4pt;
+      font-size: 11pt;
+    }
+    .page__links {
+      margin-top: 4pt;
+      font-size: 9pt;
+    }
+    .page__links a,
+    .role__summary,
+    .role__dates,
+    .job__place,
+    .skills dd {
+      color: #444 !important;
+    }
+    .block {
+      padding-top: 12pt;
+    }
+    .block__title {
+      margin-bottom: 6pt;
+      font-size: 13pt;
+    }
+    .lead {
+      font-size: 10pt;
+    }
+    .job + .job {
+      margin-top: 10pt;
+    }
+    .job__org {
+      margin-bottom: 6pt;
+      padding-bottom: 3pt;
+      font-size: 10.5pt;
+      border-color: #ccc;
+    }
+    .job__place {
+      font-size: 9.5pt;
+    }
+    .role + .role {
+      margin-top: 8pt;
+    }
+    .role,
+    .skills__row {
+      break-inside: avoid;
+    }
+    .block__title {
+      break-after: avoid;
+    }
+    .block__title a {
+      position: static;
+    }
+    .block__title a::before {
+      content: none;
+    }
+    .bullets {
+      gap: 2pt;
+      margin-top: 4pt;
+    }
+    .skills__row {
+      grid-template-columns: 9rem minmax(0, 1fr);
+    }
+    a {
+      text-decoration: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Copy the Markdown version, which is rendered into the page at build time.
+  const button = document.querySelector<HTMLButtonElement>("[data-copy-md]")
+  const label = document.querySelector<HTMLElement>("[data-copy-md-label]")
+  const status = document.querySelector<HTMLElement>("[data-copy-md-status]")
+  const source = document.getElementById("resume-markdown")
+
+  if (button && label && source && navigator.clipboard) {
+    let timer = 0
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText((source.textContent ?? "").replaceAll("<\\/", "</").trim() + "\n")
+        label.textContent = "Copied"
+        if (status) status.textContent = "Résumé copied as Markdown"
+      } catch {
+        label.textContent = "Copy failed"
+      }
+      clearTimeout(timer)
+      timer = window.setTimeout(() => {
+        label.textContent = "Copy as Markdown"
+        if (status) status.textContent = ""
+      }, 2000)
+    })
+  } else if (button) {
+    button.hidden = true
+  }
+
+  // Highlight the section you're reading in the contents.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>("[data-toc]")].map((link) => [link.dataset.toc!, link]),
+  )
+  const visible = new Set<string>()
+  const order = [...links.keys()]
+
+  const highlight = (id: string) => {
+    links.forEach((link, key) => link.setAttribute("aria-current", String(key === id)))
+    const active = links.get(id)
+    // Keep the active chip in view on the mobile strip.
+    active?.scrollIntoView({ block: "nearest", inline: "nearest" })
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.add(entry.target.id)
+        else visible.delete(entry.target.id)
+      })
+      const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 4
+      const first = atBottom ? order[order.length - 1] : order.find((id) => visible.has(id))
+      if (first) highlight(first)
+    },
+    { rootMargin: "-20% 0px -55% 0px" },
+  )
+  order.forEach((id) => {
+    const section = document.getElementById(id)
+    if (section) observer.observe(section)
+  })
+</script>

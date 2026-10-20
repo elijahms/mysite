@@ -1,0 +1,970 @@
+---
+import { getImage } from "astro:assets"
+import qmark from "@/assets/dd/qmark.webp"
+import count1 from "@/assets/dd/count-1.webp"
+import count2 from "@/assets/dd/count-2.webp"
+import count3 from "@/assets/dd/count-3.webp"
+import crown from "@/assets/dd/crown.webp"
+
+const art = {
+  qmark: (await getImage({ src: qmark, width: 200, format: "webp" })).src,
+  count: await Promise.all(
+    [count3, count2, count1].map(async (src) => (await getImage({ src, width: 280, format: "webp" })).src),
+  ),
+  crown: (await getImage({ src: crown, width: 160, format: "webp" })).src,
+}
+---
+
+<!--
+  A playable, offline round of Double Down. The rules mirror the real game:
+  typed answers, a 1 to 10 point wager, plus or minus the wager on reveal, and
+  the same typo-tolerant matcher. The other three players are scripted.
+-->
+<div class="dd" data-dd data-art={JSON.stringify(art)}>
+  <div class="dd__screen" data-dd-screen aria-live="polite">
+    <div class="dd__intro">
+      <img class="dd__mascot" src={art.qmark} width="100" height="100" alt="" />
+      <p class="dd__brand">Double Down</p>
+      <p class="dd__tag">Wager on every answer. Double down when you know it.</p>
+      <button class="dd__btn dd__btn--primary" type="button" data-dd-start>Deal me in</button>
+      <p class="dd__fine">Three questions against three bots. Runs entirely in your browser.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Double Down's own tokens: monochrome ink, near-square corners. */
+  .dd {
+    --bg: oklch(0.13 0.006 260);
+    --card: oklch(0.16 0.006 260);
+    --fg: oklch(0.98 0.002 260);
+    --muted: oklch(0.2 0.006 260);
+    --muted-fg: oklch(0.68 0.01 260);
+    --line: oklch(1 0 0 / 12%);
+    --win: oklch(0.78 0.1 155);
+    --lose: oklch(0.72 0.16 25);
+    --r: 2px;
+
+    position: relative;
+    width: min(100%, 25rem);
+    height: 39rem;
+    overflow: hidden;
+    border-radius: 18px;
+    background:
+      radial-gradient(ellipse 80% 40% at 50% -5%, oklch(1 0 0 / 0.09), transparent 70%),
+      var(--bg);
+    color: var(--fg);
+    font-family: var(--text);
+    font-size: 15px;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 40px 90px -30px rgb(0 0 0 / 0.95);
+  }
+
+  .dd__screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .dd :global(.dd-phase) {
+    animation: dd-phase-in 260ms ease both;
+  }
+
+  @keyframes dd-phase-in {
+    from {
+      opacity: 0;
+      translate: 0 6px;
+    }
+  }
+
+  .dd :global(.dd__intro),
+  .dd :global(.dd__center) {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .dd :global(.dd__mascot) {
+    width: 6.25rem;
+    height: auto;
+    filter: invert(1);
+    animation: dd-float 3.6s ease-in-out infinite;
+  }
+
+  @keyframes dd-float {
+    50% {
+      translate: 0 -6px;
+    }
+  }
+
+  .dd :global(.dd__brand) {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+
+  .dd :global(.dd__tag) {
+    max-width: 22ch;
+    color: var(--muted-fg);
+  }
+
+  .dd :global(.dd__fine) {
+    max-width: 26ch;
+    margin-top: 0.25rem;
+    color: var(--muted-fg);
+    font-size: 12px;
+  }
+
+  .dd :global(.dd__btn) {
+    min-height: 2.75rem;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: transparent;
+    color: var(--fg);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      scale 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 140ms ease;
+  }
+
+  .dd :global(.dd__btn:active) {
+    scale: 0.97;
+  }
+
+  .dd :global(.dd__btn--primary) {
+    border-color: var(--fg);
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  .dd :global(.dd__btn--primary:disabled) {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .dd :global(.dd__btn--wide) {
+    width: 100%;
+  }
+
+  /* Countdown */
+  .dd :global(.dd__ready) {
+    color: var(--muted-fg);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .dd :global(.dd__count) {
+    width: 9rem;
+    height: auto;
+    filter: invert(1);
+    animation: dd-beat 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes dd-beat {
+    from {
+      opacity: 0;
+      scale: 1.18;
+    }
+  }
+
+  /* Top bar shared by the in-game phases */
+  .dd :global(.dd__bar) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .dd :global(.dd__label) {
+    color: var(--muted-fg);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .dd :global(.dd__step) {
+    margin-top: 0.15rem;
+    font-weight: 600;
+  }
+
+  .dd :global(.dd__timer) {
+    position: relative;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex: none;
+  }
+
+  .dd :global(.dd__timer svg) {
+    width: 100%;
+    height: 100%;
+    rotate: -90deg;
+  }
+
+  .dd :global(.dd__timer circle) {
+    fill: none;
+    stroke-width: 3;
+  }
+
+  .dd :global(.dd__timer .track) {
+    stroke: var(--muted);
+  }
+
+  .dd :global(.dd__timer .fill) {
+    stroke: var(--fg);
+    stroke-linecap: round;
+    transition:
+      stroke-dashoffset 240ms linear,
+      stroke 200ms ease;
+  }
+
+  .dd :global(.dd__timer.is-low .fill) {
+    stroke: var(--lose);
+  }
+
+  .dd :global(.dd__timer span) {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dd :global(.dd__timer.is-low span) {
+    color: var(--lose);
+  }
+
+  /* Question */
+  .dd :global(.dd__q) {
+    margin-block: 0.75rem 1rem;
+    padding: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--card);
+  }
+
+  .dd :global(.dd__q h3) {
+    margin-top: 0.4rem;
+    font-family: var(--text);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  /* Who's locked in */
+  .dd :global(.dd__table) {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .dd :global(.dd__seat) {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    padding: 0.35rem 0.45rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    color: var(--muted-fg);
+    font-size: 12px;
+    white-space: nowrap;
+    transition:
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .dd :global(.dd__seat::before) {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    transition: background-color 200ms ease;
+  }
+
+  .dd :global(.dd__seat.is-locked) {
+    border-color: oklch(1 0 0 / 30%);
+    color: var(--fg);
+  }
+
+  .dd :global(.dd__seat.is-locked::before) {
+    background: var(--win);
+    box-shadow: 0 0 0 3px oklch(0.78 0.1 155 / 0.2);
+  }
+
+  /* Wager */
+  .dd :global(.dd__field-head) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.45rem;
+  }
+
+  .dd :global(.dd__wager) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .dd :global(.dd__chip) {
+    aspect-ratio: 1.35;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: transparent;
+    color: var(--fg);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition:
+      background-color 120ms ease,
+      color 120ms ease,
+      scale 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dd :global(.dd__chip:hover) {
+    border-color: oklch(1 0 0 / 35%);
+  }
+
+  .dd :global(.dd__chip[aria-pressed="true"]) {
+    border-color: var(--fg);
+    background: var(--fg);
+    color: var(--bg);
+    scale: 1.04;
+  }
+
+  /* Answer */
+  .dd :global(.dd__input) {
+    width: 100%;
+    min-height: 2.9rem;
+    margin-bottom: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--card);
+    color: var(--fg);
+    font: inherit;
+    font-size: 16px;
+  }
+
+  .dd :global(.dd__input:focus) {
+    outline: none;
+    border-color: oklch(1 0 0 / 45%);
+  }
+
+  .dd :global(.dd__count-chars) {
+    color: var(--muted-fg);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dd :global(.dd__locked) {
+    display: grid;
+    gap: 0.2rem;
+    padding: 1rem;
+    border: 1px dashed oklch(1 0 0 / 22%);
+    border-radius: var(--r);
+    text-align: center;
+  }
+
+  .dd :global(.dd__locked strong) {
+    font-size: 1.1rem;
+  }
+
+  .dd :global(.dd__locked span) {
+    color: var(--muted-fg);
+  }
+
+  /* Reveal */
+  .dd :global(.dd__answer) {
+    margin-top: 0.35rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .dd :global(.dd__also) {
+    margin-top: 0.3rem;
+    color: var(--muted-fg);
+    font-size: 13px;
+  }
+
+  .dd :global(.dd__result) {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block: 0.85rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--card);
+  }
+
+  .dd :global(.dd__delta) {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    animation: dd-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes dd-pop {
+    from {
+      opacity: 0;
+      scale: 0.4;
+    }
+  }
+
+  .dd :global(.is-win) {
+    color: var(--win);
+  }
+
+  .dd :global(.is-lose) {
+    color: var(--lose);
+  }
+
+  .dd :global(.dd__said) {
+    min-width: 0;
+    color: var(--muted-fg);
+    font-size: 13px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .dd :global(.dd__rows) {
+    display: grid;
+    gap: 0.35rem;
+    margin-block: 0.5rem 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dd :global(.dd__row) {
+    display: grid;
+    grid-template-columns: 1.1rem minmax(0, 1fr) auto 2.6rem;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--card);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dd :global(.dd__row.is-you) {
+    border-color: oklch(1 0 0 / 35%);
+  }
+
+  .dd :global(.dd__rank) {
+    color: var(--muted-fg);
+    font-size: 12px;
+  }
+
+  .dd :global(.dd__who) {
+    display: grid;
+    min-width: 0;
+  }
+
+  .dd :global(.dd__who b) {
+    font-weight: 600;
+  }
+
+  .dd :global(.dd__who small) {
+    overflow: hidden;
+    color: var(--muted-fg);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dd :global(.dd__fuzzy) {
+    margin-left: 0.35rem;
+    padding: 0 0.3rem;
+    border: 1px solid oklch(0.78 0.1 155 / 40%);
+    border-radius: var(--r);
+    color: var(--win);
+    font-size: 10px;
+  }
+
+  .dd :global(.dd__chg) {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .dd :global(.dd__total) {
+    font-weight: 700;
+    text-align: right;
+  }
+
+  .dd :global(.dd__crown) {
+    width: 5rem;
+    height: auto;
+    filter: invert(1);
+    animation: dd-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .dd :global(.dd__push) {
+    margin-top: auto;
+  }
+
+  @media (max-width: 30rem) {
+    .dd {
+      height: 40rem;
+      border-radius: 14px;
+    }
+    .dd__screen {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  type Bot = { answer: string; wager: number; lockAt: number }
+  type Question = { category: string; prompt: string; answer: string; also: string[]; bots: Bot[] }
+  type Player = { id: string; name: string; score: number }
+  type Result = { id: string; said: string; wager: number; correct: boolean; fuzzy: boolean }
+
+  // ---- Matching: the same rules as the real game (src/lib/answers.ts) ----
+  const normalize = (value: string) =>
+    value
+      .toLowerCase()
+      .trim()
+      .replace(/^(the|a|an)\s+/, "")
+      .replace(/[^a-z0-9]/g, "")
+
+  const distance = (a: string, b: string) => {
+    const row = Array.from({ length: b.length + 1 }, (_, i) => i)
+    for (let i = 1; i <= a.length; i++) {
+      let prev = row[0]
+      row[0] = i
+      for (let j = 1; j <= b.length; j++) {
+        const temp = row[j]
+        row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1))
+        prev = temp
+      }
+    }
+    return row[b.length]
+  }
+
+  const grade = (given: string, accepted: string[]) => {
+    const guess = normalize(given)
+    if (!guess) return { correct: false, fuzzy: false }
+    for (const option of accepted) {
+      const target = normalize(option)
+      if (guess === target) return { correct: true, fuzzy: false }
+      if (/\d/.test(target)) continue
+      const allowed = target.length <= 3 ? 0 : target.length <= 5 ? 1 : 2
+      if (allowed && distance(guess, target) <= allowed) return { correct: true, fuzzy: true }
+    }
+    return { correct: false, fuzzy: false }
+  }
+
+  // ---- The round: questions from the game's own packs ----
+  const QUESTIONS: Question[] = [
+    {
+      category: "Film",
+      prompt: "Which 1994 Tarantino film opens with a diner stick-up and ends by looping back to it?",
+      answer: "Pulp Fiction",
+      also: [],
+      bots: [
+        { answer: "Pulp Fiction", wager: 8, lockAt: 4 },
+        { answer: "Reservoir Dogs", wager: 5, lockAt: 7 },
+        { answer: "pulp fictoin", wager: 3, lockAt: 11 },
+      ],
+    },
+    {
+      category: "Science",
+      prompt: "What gas do plants absorb from the air during photosynthesis?",
+      answer: "Carbon dioxide",
+      also: ["CO2"],
+      bots: [
+        { answer: "Oxygen", wager: 6, lockAt: 3 },
+        { answer: "CO2", wager: 10, lockAt: 5 },
+        { answer: "carbon dioxide", wager: 4, lockAt: 9 },
+      ],
+    },
+    {
+      category: "Geography",
+      prompt: "What is the only country that is also widely treated as a continent?",
+      answer: "Australia",
+      also: [],
+      bots: [
+        { answer: "Australia", wager: 10, lockAt: 6 },
+        { answer: "Antarctica", wager: 7, lockAt: 4 },
+        { answer: "Austrailia", wager: 9, lockAt: 8 },
+      ],
+    },
+  ]
+
+  const TURN_SECONDS = 20
+  const MAX_ANSWER = 50
+
+  const root = document.querySelector<HTMLElement>("[data-dd]")
+  const screen = root?.querySelector<HTMLElement>("[data-dd-screen]")
+
+  if (root && screen) {
+    const art = JSON.parse(root.dataset.art ?? "{}") as { qmark: string; count: string[]; crown: string }
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const timers = new Set<number>()
+    const later = (fn: () => void, ms: number) => {
+      const id = window.setTimeout(() => {
+        timers.delete(id)
+        fn()
+      }, ms)
+      timers.add(id)
+      return id
+    }
+    const clearAll = () => {
+      timers.forEach((id) => clearTimeout(id))
+      timers.clear()
+    }
+
+    // Tiny DOM helper. Text always goes in as text nodes, never as HTML.
+    const h = <K extends keyof HTMLElementTagNameMap>(
+      tag: K,
+      props: Record<string, string | number | boolean> = {},
+      ...children: (Node | string | null | false)[]
+    ) => {
+      const node = document.createElement(tag)
+      for (const [key, value] of Object.entries(props)) {
+        if (value === false) continue
+        if (key === "class") node.className = String(value)
+        else node.setAttribute(key, String(value))
+      }
+      for (const child of children) if (child) node.append(child)
+      return node
+    }
+
+    const show = (...nodes: Node[]) => {
+      const phase = h("div", { class: "dd-phase", style: "display:flex;flex-direction:column;flex:1;min-height:0" })
+      phase.append(...nodes)
+      screen.replaceChildren(phase)
+      screen.scrollTop = 0
+    }
+
+    let players: Player[] = []
+    let round = 0
+
+    const sorted = () => [...players].sort((a, b) => b.score - a.score)
+
+    const start = () => {
+      clearAll()
+      players = [
+        { id: "you", name: "You", score: 0 },
+        { id: "maya", name: "Maya", score: 0 },
+        { id: "jonah", name: "Jonah", score: 0 },
+        { id: "priya", name: "Priya", score: 0 },
+      ]
+      round = 0
+      countdown()
+    }
+
+    // "Here we go." then 3, 2, 1, with the game's own timings.
+    const countdown = () => {
+      const pre = still ? 200 : 550
+      const beat = still ? 280 : 700
+      show(h("div", { class: "dd__center" }, h("p", { class: "dd__ready" }, "Here we go.")))
+      art.count.forEach((src, i) => {
+        later(() => {
+          show(h("div", { class: "dd__center" }, h("img", { class: "dd__count", src, alt: String(3 - i), width: 144, height: 144 })))
+        }, pre + i * beat)
+      })
+      later(answering, pre + art.count.length * beat)
+    }
+
+    const answering = () => {
+      const q = QUESTIONS[round]
+      let wager = 1
+      let left = TURN_SECONDS
+      let locked = false
+      let revealing = false
+      let yourAnswer: { said: string; wager: number } | null = null
+      const lockedBots = new Set<number>()
+
+      // Timer ring
+      const C = 2 * Math.PI * 24
+      const fill = document.createElementNS("http://www.w3.org/2000/svg", "circle")
+      const track = document.createElementNS("http://www.w3.org/2000/svg", "circle")
+      for (const c of [track, fill]) {
+        c.setAttribute("cx", "28")
+        c.setAttribute("cy", "28")
+        c.setAttribute("r", "24")
+      }
+      track.setAttribute("class", "track")
+      fill.setAttribute("class", "fill")
+      fill.setAttribute("stroke-dasharray", String(C))
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      svg.setAttribute("viewBox", "0 0 56 56")
+      svg.setAttribute("aria-hidden", "true")
+      svg.append(track, fill)
+      const seconds = h("span", {}, String(left))
+      const timer = h("div", { class: "dd__timer", role: "timer", "aria-label": `${left} seconds left` }, svg, seconds)
+
+      const seats = players
+        .filter((p) => p.id !== "you")
+        .map((p) => h("span", { class: "dd__seat" }, p.name))
+
+      const chips = Array.from({ length: 10 }, (_, i) => {
+        const value = i + 1
+        const chip = h("button", { class: "dd__chip", type: "button", "aria-pressed": value === wager ? "true" : "false" }, String(value))
+        chip.addEventListener("click", () => {
+          wager = value
+          chips.forEach((c, j) => c.setAttribute("aria-pressed", String(j + 1 === wager)))
+          lockBtn.textContent = `Lock in ${wager}`
+        })
+        return chip
+      })
+
+      const input = h("input", {
+        class: "dd__input",
+        type: "text",
+        maxlength: MAX_ANSWER,
+        placeholder: "Type your answer…",
+        autocomplete: "off",
+        autocapitalize: "off",
+        spellcheck: "false",
+        "aria-label": "Your answer",
+        enterkeyhint: "send",
+      }) as HTMLInputElement
+      const chars = h("span", { class: "dd__count-chars" }, `0/${MAX_ANSWER}`)
+      input.addEventListener("input", () => {
+        chars.textContent = `${input.value.length}/${MAX_ANSWER}`
+      })
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") lock()
+      })
+
+      const lockBtn = h("button", { class: "dd__btn dd__btn--primary dd__btn--wide", type: "button" }, `Lock in ${wager}`)
+      lockBtn.addEventListener("click", () => lock())
+
+      const controls = h(
+        "div",
+        { class: "dd__push" },
+        h("div", { class: "dd__field-head" }, h("span", { class: "dd__label" }, "Wager")),
+        h("div", { class: "dd__wager", role: "group", "aria-label": "Wager" }, ...chips),
+        h("div", { class: "dd__field-head" }, h("span", { class: "dd__label" }, "Answer"), chars),
+        input,
+        lockBtn,
+      )
+
+      show(
+        h(
+          "div",
+          { class: "dd__bar" },
+          h("div", {}, h("p", { class: "dd__label" }, "Live hand"), h("p", { class: "dd__step" }, `${round + 1} of ${QUESTIONS.length}`)),
+          timer,
+        ),
+        h("div", { class: "dd__q" }, h("p", { class: "dd__label" }, q.category), h("h3", {}, q.prompt)),
+        h("div", { class: "dd__table", "aria-label": "Other players" }, ...seats),
+        controls,
+      )
+      if (window.matchMedia("(pointer: fine)").matches) input.focus({ preventScroll: true })
+
+      const lockBot = (i: number) => {
+        if (lockedBots.has(i)) return
+        lockedBots.add(i)
+        seats[i].classList.add("is-locked")
+        seats[i].textContent = `${players[i + 1].name} locked`
+        maybeReveal()
+      }
+
+      q.bots.forEach((bot, i) => later(() => lockBot(i), bot.lockAt * 1000))
+
+      const tick = () => {
+        left -= 1
+        seconds.textContent = String(Math.max(0, left))
+        timer.setAttribute("aria-label", `${Math.max(0, left)} seconds left`)
+        fill.setAttribute("stroke-dashoffset", String(C * (1 - left / TURN_SECONDS)))
+        timer.classList.toggle("is-low", left <= 5)
+        if (left <= 0) {
+          if (!locked) lock(true)
+          q.bots.forEach((_, i) => lockBot(i))
+        } else later(tick, 1000)
+      }
+      later(tick, 1000)
+
+      function lock(timedOut = false) {
+        if (locked) return
+        locked = true
+        const said = input.value
+        controls.replaceWith(
+          h(
+            "div",
+            { class: "dd__push dd__locked" },
+            h("strong", {}, timedOut && !said.trim() ? "Time's up" : "Locked in"),
+            h("span", {}, `${wager} on the table`),
+          ),
+        )
+        yourAnswer = { said, wager }
+        // Once you're in, the table hurries up.
+        q.bots.forEach((_, i) => later(() => lockBot(i), 500 + i * 450))
+        maybeReveal()
+      }
+
+      function maybeReveal() {
+        if (revealing || !locked || lockedBots.size < q.bots.length || !yourAnswer) return
+        revealing = true
+        clearAll()
+        const accepted = [q.answer, ...q.also]
+        const results: Result[] = [
+          { id: "you", said: yourAnswer.said, wager: yourAnswer.wager, ...grade(yourAnswer.said, accepted) },
+          ...q.bots.map((bot, i) => ({ id: players[i + 1].id, said: bot.answer, wager: bot.wager, ...grade(bot.answer, accepted) })),
+        ]
+        later(() => scoring(results), still ? 0 : 450)
+      }
+    }
+
+    const scoring = (results: Result[]) => {
+      show(h("div", { class: "dd__center" }, h("p", { class: "dd__ready" }, "Scoring…")))
+      later(() => reveal(results), still ? 200 : 750)
+    }
+
+    const reveal = (results: Result[]) => {
+      const q = QUESTIONS[round]
+      const before = sorted().map((p) => p.id)
+      const previous = new Map(players.map((p) => [p.id, p.score]))
+      for (const r of results) {
+        const player = players.find((p) => p.id === r.id)!
+        player.score += r.correct ? r.wager : -r.wager
+      }
+
+      const you = results[0]
+      const delta = you.correct ? you.wager : -you.wager
+      const last = round === QUESTIONS.length - 1
+
+      const rows = sorted().map((player, index) => {
+        const r = results.find((x) => x.id === player.id)!
+        const change = r.correct ? r.wager : -r.wager
+        const total = h("span", { class: "dd__total" }, String(previous.get(player.id)))
+        const row = h(
+          "li",
+          { class: `dd__row${player.id === "you" ? " is-you" : ""}`, "data-id": player.id },
+          h("span", { class: "dd__rank" }, String(index + 1)),
+          h(
+            "span",
+            { class: "dd__who" },
+            h("b", {}, player.name),
+            h("small", {}, r.said.trim() ? `“${r.said.trim()}”` : "No answer", r.fuzzy ? h("span", { class: "dd__fuzzy" }, "typo accepted") : null),
+          ),
+          h("span", { class: `dd__chg ${change > 0 ? "is-win" : "is-lose"}` }, `${change > 0 ? "+" : "−"}${Math.abs(change)}`),
+          total,
+        )
+        countTo(total, previous.get(player.id)!, player.score)
+        return row
+      })
+      const list = h("ol", { class: "dd__rows", "aria-label": "Answers" }, ...rows)
+
+      const next = h("button", { class: "dd__btn dd__btn--primary dd__btn--wide dd__push", type: "button" }, last ? "See the table" : "Next hand")
+      next.addEventListener("click", () => {
+        if (last) final()
+        else {
+          round += 1
+          countdown()
+        }
+      })
+
+      show(
+        h("div", { class: "dd__bar" }, h("div", {}, h("p", { class: "dd__label" }, "Reveal"), h("p", { class: "dd__step" }, `${round + 1} of ${QUESTIONS.length}`))),
+        h(
+          "div",
+          {},
+          h("p", { class: "dd__label" }, "Answer"),
+          h("p", { class: "dd__answer" }, q.answer),
+          q.also.length ? h("p", { class: "dd__also" }, `Also accepted: ${q.also.join(", ")}`) : null,
+        ),
+        h(
+          "div",
+          { class: "dd__result" },
+          h("span", { class: `dd__delta ${delta > 0 ? "is-win" : "is-lose"}` }, `${delta > 0 ? "+" : "−"}${Math.abs(delta)} pts`),
+          h("span", { class: "dd__said" }, you.said.trim() ? `You said “${you.said.trim()}”` : "No answer"),
+        ),
+        h("p", { class: "dd__label" }, "Answers"),
+        list,
+        next,
+      )
+
+      // Slide rows from last round's order into the new one.
+      if (!still && round > 0) {
+        const rowHeight = rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top
+        rows.forEach((row, newIndex) => {
+          const oldIndex = before.indexOf(row.dataset.id!)
+          const shift = (oldIndex - newIndex) * rowHeight
+          if (shift) row.animate([{ transform: `translateY(${shift}px)` }, { transform: "none" }], { duration: 650, delay: 350, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "backwards" })
+        })
+      }
+      next.focus({ preventScroll: true })
+    }
+
+    const countTo = (node: HTMLElement, from: number, to: number) => {
+      if (still || from === to) {
+        node.textContent = String(to)
+        return
+      }
+      const startAt = performance.now() + 300
+      const step = (now: number) => {
+        const t = Math.min(1, Math.max(0, (now - startAt) / 600))
+        node.textContent = String(Math.round(from + (to - from) * (1 - (1 - t) ** 3)))
+        if (t < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }
+
+    const final = () => {
+      const table = sorted()
+      const winner = table[0]
+      const you = players.find((p) => p.id === "you")!
+      const again = h("button", { class: "dd__btn dd__btn--primary", type: "button" }, "Play again")
+      again.addEventListener("click", start)
+      show(
+        h(
+          "div",
+          { class: "dd__center" },
+          h("img", { class: "dd__crown", src: art.crown, alt: "", width: 80, height: 80 }),
+          h("p", { class: "dd__label" }, "Final table"),
+          h("p", { class: "dd__brand" }, winner.id === "you" ? "You win" : `${winner.name} wins`),
+          h("p", { class: "dd__tag" }, `You finished with ${you.score} pts`),
+          h(
+            "ol",
+            { class: "dd__rows", style: "width:100%;text-align:left" },
+            ...table.map((p, i) =>
+              h(
+                "li",
+                { class: `dd__row${p.id === "you" ? " is-you" : ""}`, style: "grid-template-columns:1.1rem minmax(0,1fr) 3rem" },
+                h("span", { class: "dd__rank" }, String(i + 1)),
+                h("span", { class: "dd__who" }, h("b", {}, p.name)),
+                h("span", { class: "dd__total" }, String(p.score)),
+              ),
+            ),
+          ),
+          again,
+        ),
+      )
+      again.focus({ preventScroll: true })
+    }
+
+    root.querySelector("[data-dd-start]")?.addEventListener("click", start)
+  }
+</script>
