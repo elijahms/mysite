@@ -56,6 +56,20 @@ export const site = {
       },
     },
     {
+      name: "Snail Mail",
+      slug: "snail-mail",
+      description:
+        "Letters that take their sweet time. Pick a carrier, from pony rider to message in a bottle, and follow the letter along a real route on a live map until it arrives.",
+      highlights: [
+        "Live route tracking",
+        "AI handwriting",
+        "Photographed letters",
+        "5 languages",
+      ],
+      stack: ["Next.js", "TypeScript", "Postgres", "Vercel"],
+      href: "https://snailmail-post.vercel.app",
+    },
+    {
       name: "Treadlite",
       slug: "treadlite",
       description:
