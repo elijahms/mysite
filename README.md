@@ -12,7 +12,7 @@ npm run preview   # serves dist/
 npm run resume:pdf  # with dev or preview running: prints /resume to public/resume.pdf
 ```
 
-Requires Node 22.12 or newer.
+Requires a patched Node: 22.23.4+, 24.22.1+ or 26.12.1+ (the October 21, 2026 security releases). `.node-version` pins 24.22.1 for fnm, nvm and similar tools.
 
 ## Where things live
 
