@@ -4,7 +4,7 @@ export const site = {
   location: "New York",
   description:
     "Elijah Silverman builds web apps people actually use: real-time multiplayer trivia, letters that travel on a live map, a volunteer matchmaking platform, and the internal tools behind a global asset manager.",
-  email: "elijahmsilverman@gmail.com",
+  email: "hello@elijahsilverman.com",
   resume: "/resume",
   now: {
     title: "Portfolio Analyst, Global Fixed Income",
