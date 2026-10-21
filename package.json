@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.11",
+    "@types/node": "^24.19.2",
     "puppeteer-core": "25.14.0",
     "typescript": "^6.0.3"
   }
