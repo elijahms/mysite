@@ -14,7 +14,7 @@
     "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
   },
   "dependencies": {
-    "astro": "^7.4.1"
+    "astro": "^7.4.7"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.11",
